@@ -1,15 +1,65 @@
-// --- Music Logic ---
+// --- 1. Music Logic (Local Folder Playlist) ---
 const audio = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
+
+// Yahan folder wale gano ke naam likhein
+const playlist = [
+    "song1.mp3",  // Pehla Bhajan
+    "song2.mp3",  // Dusra Bhajan
+    "song3.mp3",  // Tisra Bhajan
+    "song4.mp3"   // Chautha Bhajan (Agar hai to)
+];
+
+let currentSongIndex = 0;
+
+// Play/Pause Function
 function toggleMusic() {
-    if (audio.paused) { 
-        audio.play().catch(e => alert("Music play karne ke liye page par click karein.")); 
-        btn.innerText = "⏸ Pause"; 
-    } else { 
-        audio.pause(); 
-        btn.innerText = "🎵 Play"; 
+    // Agar audio src set nahi hai, to pehla gaana load karein
+    if (!audio.src || audio.src === window.location.href) {
+        changeSong(0); 
+    } else {
+        if (audio.paused) { 
+            audio.play().catch(e => alert("Please interact with the page first.")); 
+            btn.innerText = "⏸ Pause"; 
+        } else { 
+            audio.pause(); 
+            btn.innerText = "🎵 Play"; 
+        }
     }
 }
+
+// Next Song Function (Random ya Sequence)
+function playNextSong() {
+    // Random gaana chunne ke liye (Taaki har baar alag baje)
+    let nextIndex = Math.floor(Math.random() * playlist.length);
+    
+    // Agar wahi gaana dobara aa jaye, to agla wala chala do
+    if (nextIndex === currentSongIndex) {
+        nextIndex = (currentSongIndex + 1) % playlist.length;
+    }
+    
+    changeSong(nextIndex);
+}
+
+// Gaana badalne ka function
+function changeSong(index) {
+    currentSongIndex = index;
+    audio.src = playlist[currentSongIndex];
+    
+    // Naye gaane ko load karke play karein
+    audio.load();
+    audio.play().then(() => {
+        btn.innerText = "⏸ Pause";
+    }).catch(e => {
+        console.log("Auto-play blocked or file not found: " + playlist[index]);
+        alert("अगला भजन नहीं मिल रहा है या नाम गलत है (" + playlist[index] + ")");
+    });
+}
+
+// Jab gaana khatam ho jaye, to apne aap agla chalayein
+audio.onended = function() {
+    playNextSong();
+};
 
 // --- Quotes & Animation Logic ---
 const quotes = [
