@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://skbanilchopra.github.io/shree-radhe-shyam/sitemap.xml
