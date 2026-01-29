@@ -7,7 +7,8 @@ const playlist = [
     "song1.mp3",
     "song2.mp3",
     "song3.mp3",
-    "song4.mp3" 
+    "song4.mp3" ,
+    "song5.mp3"
 ];
 
 let currentSongIndex = 0;
@@ -101,7 +102,20 @@ function setDailyQuote() {
     quoteBox.innerText = quotes[index];
     quoteBox.classList.add('fade-in');
 }
-
+// --- WhatsApp Share Function ---
+function shareOnWhatsapp() {
+    const quoteText = document.getElementById('quote').innerText;
+    const websiteUrl = window.location.href; // आपकी वेबसाइट का लिंक
+    
+    // व्हाट्सएप के लिए मैसेज तैयार करना
+    const message = `*जय श्री राधे-कृष्ण* 🙏\n\nआज का अनमोल विचार:\n_"${quoteText}"_\n\nऐसे ही दिव्य विचारों और भजनों के लिए हमारी वेबसाइट पर आएं:\n${websiteUrl}`;
+    
+    // लिंक बनाना
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    
+    // नए टैब में व्हाट्सएप खोलना
+    window.open(whatsappUrl, '_blank');
+}
 // --- 3. Jaap Mala ---
 let count = 0;
 function countJaap() {
@@ -356,4 +370,3 @@ class RamText {
 for (let i = 0; i < 50; i++) drops.push(new RamText());
 function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); drops.forEach(d => { d.update(); d.draw(); }); requestAnimationFrame(animate); }
 animate();
-
