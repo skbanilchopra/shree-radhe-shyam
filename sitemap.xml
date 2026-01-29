@@ -6,25 +6,4 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <url>
-    <loc>https://skbanilchopra.github.io/shree-radhe-shyam/#video</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://skbanilchopra.github.io/shree-radhe-shyam/#aarti</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://skbanilchopra.github.io/shree-radhe-shyam/#jaap</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
 </urlset>
