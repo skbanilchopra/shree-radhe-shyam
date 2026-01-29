@@ -1,15 +1,12 @@
 /* --- 1. General Settings (Divine Background) --- */
 body {
     margin: 0; padding: 0; font-family: 'Roboto', 'Arial', sans-serif;
-    
-    /* Divine Aura Gradient */
     background: radial-gradient(ellipse at center, 
                 #ffe066 0%,   /* Center: Bright Gold */
                 #ffcc00 25%,  /* Middle: Deep Yellow */
                 #ff6600 55%,  /* Outer: Saffron/Orange */
                 #800000 100%  /* Edge: Royal Maroon */
                 );
-    
     background-attachment: fixed; 
     color: white;
     min-height: 100vh; overflow-y: auto; 
@@ -22,8 +19,8 @@ body {
 .navbar {
     position: sticky; top: 0; z-index: 1000;
     background: rgba(0, 0, 0, 0.9);
-    border-bottom: 1px solid #333;
-    padding: 10px 20px;
+    border-bottom: 2px solid #ffcc00;
+    padding: 10px 15px;
     display: flex; justify-content: space-between; align-items: center;
     backdrop-filter: blur(10px);
 }
@@ -31,165 +28,89 @@ body {
 .nav-links { list-style: none; padding: 0; margin: 0; display: flex; gap: 20px; }
 .nav-links li a { text-decoration: none; color: #fff; font-size: 0.9rem; transition: 0.3s; }
 .nav-links li a:hover { color: #ffcc00; }
-.music-btn-nav { background: #333; color: #ffcc00; border: 1px solid #ffcc00; padding: 5px 15px; border-radius: 20px; cursor: pointer; }
 
-/* --- 3. CHANNEL HEADER (Professional White Text Look) --- */
-.channel-header { 
-    position: relative; z-index: 10; 
-    background: transparent; 
-    padding-bottom: 20px; 
+.music-controls { display: flex; gap: 8px; align-items: center; }
+.music-btn-nav { 
+    background: #333; color: #ffcc00; border: 1px solid #ffcc00; 
+    padding: 6px 14px; border-radius: 20px; cursor: pointer; 
+    font-weight: bold; display: flex; align-items: center; 
+    justify-content: center; transition: 0.3s; font-size: 0.9rem;
 }
+.music-btn-nav:hover { background: #ffcc00; color: #000; transform: scale(1.05); }
 
+/* --- 3. CHANNEL HEADER --- */
+.channel-header { position: relative; z-index: 10; background: transparent; padding-bottom: 20px; }
 .banner-container { 
-    width: 100%; height: 180px; 
-    overflow: hidden; 
-    border-bottom: 4px solid #fff; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+    width: 100%; height: 180px; overflow: hidden; 
+    border-bottom: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
 }
 .banner-img { width: 100%; height: 100%; object-fit: cover; }
-
-.channel-info {
-    display: flex; align-items: center; gap: 20px;
-    padding: 0 20px; 
-    margin-top: -50px; 
-    position: relative;
-}
-
+.channel-info { display: flex; align-items: center; gap: 20px; padding: 0 20px; margin-top: -50px; position: relative; }
 .logo-container img.main-logo {
     width: 110px; height: 110px; border-radius: 50%;
-    border: 4px solid #ffffff; 
-    background: #000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    border: 4px solid #ffffff; background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
-
 .text-info { text-align: left; margin-top: 55px; }
-
-.text-info h1 { 
-    margin: 0; font-size: 2rem; 
-    color: #ffffff; 
-    font-weight: 800; 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.9); 
-    letter-spacing: 1px;
-}
-
-.text-info p { 
-    margin: 5px 0; color: #f0f0f0; 
-    font-size: 0.95rem; 
-    text-shadow: 0 1px 5px rgba(0,0,0,0.9);
-}
+.text-info h1 { margin: 0; font-size: 2rem; color: #ffffff; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.9); letter-spacing: 1px; }
+.text-info p { margin: 5px 0; color: #f0f0f0; font-size: 0.95rem; text-shadow: 0 1px 5px rgba(0,0,0,0.9); }
 
 .subscribe-btn {
-    background-color: #ffffff; color: #cc0000;
-    border: none; padding: 10px 25px; border-radius: 50px;
-    font-weight: bold; cursor: pointer; margin-top: 12px;
-    font-size: 0.9rem; text-transform: uppercase;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.2s, background 0.2s;
+    background-color: #ffffff; color: #cc0000; border: none; padding: 10px 25px; border-radius: 50px;
+    font-weight: bold; cursor: pointer; margin-top: 12px; font-size: 0.9rem; text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: transform 0.2s, background 0.2s;
 }
 .subscribe-btn:hover { background-color: #f2f2f2; transform: scale(1.05); }
 
 /* --- 4. CONTENT AREA & CARDS --- */
 .content-area { padding: 20px; max-width: 800px; margin: 0 auto; position: relative; z-index: 5; }
-
 .card {
-    background: rgba(30, 30, 30, 0.8);
-    padding: 25px; border-radius: 15px; margin-bottom: 30px;
-    border: 1px solid #333; text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    background: rgba(30, 30, 30, 0.8); padding: 25px; border-radius: 15px; margin-bottom: 30px;
+    border: 1px solid #333; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
-
 h2 { color: #ffcc00; margin-top: 0; font-size: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px; display: inline-block; }
 
 /* --- 5. ROYAL SCROLL DESIGN --- */
 .scroll-container { position: relative; max-width: 550px; margin: 40px auto; padding-top: 20px; }
-
-.mor-pankh {
-    position: absolute; top: -25px; right: -10px; width: 80px;
-    transform: rotate(15deg); z-index: 20;
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
-}
-
+.mor-pankh { position: absolute; top: -25px; right: -10px; width: 80px; transform: rotate(15deg); z-index: 20; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); }
 .royal-scroll {
-    position: relative;
-    background: radial-gradient(circle, #800000, #4a0000); 
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.6), inset 0 0 20px #ffcc00;
-    border: 2px solid #ffcc00;
-    border-left: 8px solid #ffaa00; border-right: 8px solid #ffaa00;
-    padding: 10px;
-    transform: perspective(1000px) rotateX(5deg);
-    transition: transform 0.3s;
+    position: relative; background: radial-gradient(circle, #800000, #4a0000); border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6), inset 0 0 20px #ffcc00; border: 2px solid #ffcc00;
+    border-left: 8px solid #ffaa00; border-right: 8px solid #ffaa00; padding: 10px;
+    transform: perspective(1000px) rotateX(5deg); transition: transform 0.3s;
 }
-
 .royal-scroll:hover { transform: perspective(1000px) rotateX(0deg) scale(1.02); }
 .royal-scroll::before, .royal-scroll::after { content: '✦'; position: absolute; color: #ffcc00; font-size: 1.5rem; }
 .royal-scroll::before { top: 5px; left: 10px; }
 .royal-scroll::after { bottom: 5px; right: 10px; }
-
 .scroll-content { border: 1px dashed rgba(255, 204, 0, 0.4); padding: 20px; border-radius: 5px; }
-
-.header-decoration {
-    color: #ffcc00; font-weight: bold; font-size: 1.2rem;
-    margin-bottom: 15px; text-shadow: 0 0 5px #ff0000;
-    border-bottom: 1px solid #ffcc00; display: inline-block; padding-bottom: 5px;
-}
-
-.scroll-text {
-    font-size: 1.6rem; color: #fff; font-family: 'Georgia', serif; font-style: italic;
-    line-height: 1.5; text-shadow: 2px 2px 2px #000; min-height: 80px;
-}
-
+.header-decoration { color: #ffcc00; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; text-shadow: 0 0 5px #ff0000; border-bottom: 1px solid #ffcc00; display: inline-block; padding-bottom: 5px; }
+.scroll-text { font-size: 1.6rem; color: #fff; font-family: 'Georgia', serif; font-style: italic; line-height: 1.5; text-shadow: 2px 2px 2px #000; min-height: 80px; }
 .footer-decoration { font-size: 1.5rem; color: rgba(255, 204, 0, 0.5); margin: 10px 0; }
-
 .scroll-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-
-.scroll-btn {
-    border: none; padding: 10px 20px; border-radius: 25px;
-    font-weight: bold; cursor: pointer; text-transform: uppercase;
-    font-size: 0.9rem; display: flex; align-items: center; gap: 5px; transition: 0.3s;
-}
+.scroll-btn { border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
 .scroll-btn.refresh { background: #ffcc00; color: #4a0000; box-shadow: 0 4px 0 #b38f00; }
 .scroll-btn.share { background: #25D366; color: white; box-shadow: 0 4px 0 #128C7E; }
 
 /* --- 6. JAAP MALA --- */
-.jaap-circle {
-    width: 120px; height: 120px; border-radius: 50%;
-    background: radial-gradient(circle, #ffcc00, #ff9900);
-    border: 4px solid #fff; color: #000; font-size: 2.5rem; font-weight: bold;
-    display: flex; justify-content: center; align-items: center;
-    margin: 20px auto; cursor: pointer; user-select: none;
-    box-shadow: 0 0 15px #ffcc00;
-}
+.jaap-circle { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #ffcc00, #ff9900); border: 4px solid #fff; color: #000; font-size: 2.5rem; font-weight: bold; display: flex; justify-content: center; align-items: center; margin: 20px auto; cursor: pointer; user-select: none; box-shadow: 0 0 15px #ffcc00; }
 .reset-link { color: #fff; text-decoration: underline; font-size: 0.9rem; cursor: pointer; }
 
 /* --- 7. VIDEO & AARTI --- */
 .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; border: 1px solid #444; }
 .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-select.aarti-dropdown {
-    width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;
-    background: #333; color: #fff; border: 1px solid #555;
-}
-.aarti-text {
-    background: #0f0f0f; padding: 20px; border-radius: 10px; height: 350px; overflow-y: scroll;
-    -webkit-overflow-scrolling: touch; text-align: left; white-space: pre-wrap;
-    line-height: 1.8; color: #ffeb3b; border: 2px solid #333; font-size: 1.1rem;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-}
+select.aarti-dropdown { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; background: #333; color: #fff; border: 1px solid #555; }
+.aarti-text { background: #0f0f0f; padding: 20px; border-radius: 10px; height: 350px; overflow-y: scroll; -webkit-overflow-scrolling: touch; text-align: left; white-space: pre-wrap; line-height: 1.8; color: #ffeb3b; border: 2px solid #333; font-size: 1.1rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
 .aarti-text::-webkit-scrollbar { width: 8px; }
 .aarti-text::-webkit-scrollbar-track { background: #222; border-radius: 10px; }
 .aarti-text::-webkit-scrollbar-thumb { background: #ffcc00; border-radius: 10px; border: 1px solid #000; }
 
-/* --- 8. MOBILE ADJUSTMENTS --- */
+/* --- 8. MOBILE ADJUSTMENTS (Merged) --- */
 @media (max-width: 600px) {
+    .nav-brand { font-size: 0.9rem; }
+    .nav-links li a span { display: none; } /* Chhupaaye text sirf icon dikhaaye */
+    .nav-links { gap: 15px; }
     .channel-info { flex-direction: column; text-align: center; margin-top: -50px; }
     .text-info { text-align: center; margin-top: 10px; }
-    .nav-brand { display: none; }
-    .nav-links { width: 100%; justify-content: space-around; }
-}
-/* Mobile Update */
-@media (max-width: 600px) {
-    .hide-mobile { display: none; } /* Mobile par text chhup jayega, sirf icon dikhega */
-    .nav-links { gap: 15px; }
+    .music-controls { gap: 5px; }
     .music-btn-nav { font-size: 0.8rem; padding: 5px 10px; }
 }
