@@ -14,19 +14,19 @@
     <audio id="bgMusic" loop><source src="bhajan.mp3" type="audio/mpeg"></audio>
 
     <nav class="navbar">
-        <div class="nav-brand">Shree Radhe Shyam</div>
-        
-        <ul class="nav-links">
-            <li><a href="#home"><i class="fa fa-home"></i> <span class="hide-mobile">Home</span></a></li>
-            <li><a href="#video"><i class="fa fa-play-circle"></i> <span class="hide-mobile">Bhajan</span></a></li>
-            <li><a href="#aarti"><i class="fa fa-book-open"></i> <span class="hide-mobile">Aarti</span></a></li>
-        </ul>
+    <div class="nav-brand">Shree Radhe Shyam</div>
+    
+    <ul class="nav-links">
+        <li><a href="#home"><i class="fa fa-home"></i> <span>Home</span></a></li>
+        <li><a href="#video"><i class="fa fa-play-circle"></i> <span>Bhajan</span></a></li>
+        <li><a href="#aarti"><i class="fa fa-book-open"></i> <span>Aarti</span></a></li>
+    </ul>
 
-        <div class="music-controls" style="display: flex; gap: 8px; align-items: center;">
-            <button class="music-btn-nav" onclick="toggleMusic()" id="musicBtn">🎵 Play</button>
-            <button class="music-btn-nav" onclick="playNextSong()" title="Next Song" style="padding: 5px 10px;">⏭️</button>
-        </div>
-    </nav>
+    <div class="music-controls">
+        <button class="music-btn-nav" onclick="toggleMusic()" id="musicBtn">🎵 Play</button>
+        <button class="music-btn-nav next-btn" onclick="playNextSong()" title="Next Song">⏭️</button>
+    </div>
+</nav>
 
     <header class="channel-header" id="home">
         <div class="banner-container">
@@ -108,3 +108,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
