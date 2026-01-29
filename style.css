@@ -187,3 +187,9 @@ select.aarti-dropdown {
     .nav-brand { display: none; }
     .nav-links { width: 100%; justify-content: space-around; }
 }
+/* Mobile Update */
+@media (max-width: 600px) {
+    .hide-mobile { display: none; } /* Mobile par text chhup jayega, sirf icon dikhega */
+    .nav-links { gap: 15px; }
+    .music-btn-nav { font-size: 0.8rem; padding: 5px 10px; }
+}
