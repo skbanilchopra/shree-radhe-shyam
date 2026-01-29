@@ -114,3 +114,27 @@ select.aarti-dropdown { width: 100%; padding: 10px; margin-bottom: 15px; border-
     .music-controls { gap: 5px; }
     .music-btn-nav { font-size: 0.8rem; padding: 5px 10px; }
 }
+/* --- FOOTER STYLE --- */
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 2px solid #ffcc00;
+    margin-top: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+.footer span {
+    color: #ffcc00; /* Sunhera Rang */
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
