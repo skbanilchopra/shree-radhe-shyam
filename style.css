@@ -203,3 +203,26 @@ select.aarti-dropdown {
 }
 .footer p { margin: 5px 0; font-size: 0.9rem; }
 .footer span { font-weight: bold; color: #FFFDE7; }
+
+/* --- मोबाइल पर म्यूजिक बटन को जबरदस्ती दिखाएं (Force Show) --- */
+@media (max-width: 600px) {
+    .music-controls {
+        display: flex !important; /* इसे छुपने से रोकेगा */
+        position: fixed !important; /* स्क्रीन पर फिक्स करेगा */
+        bottom: 90px !important; /* नीचे से 90px ऊपर (मेन्यू के ऊपर) */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        
+        background: #FFF8E1; /* बैकग्राउंड कलर */
+        padding: 8px 15px;
+        border-radius: 50px;
+        border: 2px solid #FFD54F;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        z-index: 9999 !important; /* सबसे ऊपर रखेगा */
+        width: auto;
+        gap: 15px;
+    }
+
+    /* अगर ब्रांड नाम हटाना है तो */
+    .nav-brand { display: none !important; } 
+}
