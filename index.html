@@ -1,111 +1,146 @@
 <!DOCTYPE html>
 <html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shree Radhe Shyam - Home</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <head>
+        <meta name="google-site-verification" content="nVAlLeihbtm4SBmvEE8T47BFvuRBPEggGx1dFdugCx0" />
+        <meta charset="UTF-8">
+        <meta name="description"
+            content="Shree Radhe Shyam - भजनों, आरती और दिव्य सुविचारों का संगम। सुनील सैनी द्वारा निर्मित।">
+        <meta name="keywords"
+            content="Shree Radhe Shyam, Sunil Saini, Krishna Bhajan, Aarti Collection, Jaap Mala, Jai Shree Ram Online Services">
+        <meta name="author" content="Sunil Saini">
 
-    <canvas id="flowerCanvas"></canvas>
-    
-    <audio id="bgMusic" loop><source src="bhajan.mp3" type="audio/mpeg"></audio>
+        <meta property="og:title"
+            content="Shree Radhe Shyam - Home of Devotion">
+        <meta property="og:description" content="भजन और आरती का दिव्य अनुभव।">
+        <meta property="og:image" content="logo.jpg">
+        <meta property="og:url"
+            content="https://skbanilchopra.github.io/shree-radhe-shyam/">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shree Radhe Shyam - Home</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <nav class="navbar">
-    <div class="nav-brand">Shree Radhe Shyam</div>
-    
-    <ul class="nav-links">
-        <li><a href="#home"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        <li><a href="#video"><i class="fa fa-play-circle"></i> <span>Bhajan</span></a></li>
-        <li><a href="#aarti"><i class="fa fa-book-open"></i> <span>Aarti</span></a></li>
-    </ul>
+    </head>
+    <body>
 
-    <div class="music-controls">
-        <button class="music-btn-nav" onclick="toggleMusic()" id="musicBtn">🎵 Play</button>
-        <button class="music-btn-nav next-btn" onclick="playNextSong()" title="Next Song">⏭️</button>
-    </div>
-</nav>
+        <canvas id="flowerCanvas"></canvas>
 
-    <header class="channel-header" id="home">
-        <div class="banner-container">
-            <img src="banner.jpg" alt="Channel Banner" class="banner-img">
-        </div>
-        
-        <div class="channel-info">
-            <div class="logo-container">
-                <img src="logo.jpg" alt="Logo" class="main-logo">
+        <audio id="bgMusic" loop><source src="bhajan.mp3"
+                type="audio/mpeg"></audio>
+
+        <nav class="navbar">
+            <div class="nav-brand">Shree Radhe Shyam</div>
+
+            <ul class="nav-links">
+                <li><a href="#home"><i class="fa fa-home"></i>
+                        <span>Home</span></a></li>
+                <li><a href="#video"><i class="fa fa-play-circle"></i>
+                        <span>Bhajan</span></a></li>
+                <li><a href="#aarti"><i class="fa fa-book-open"></i>
+                        <span>Aarti</span></a></li>
+            </ul>
+
+            <div class="music-controls">
+                <button class="music-btn-nav" onclick="toggleMusic()"
+                    id="musicBtn">🎵 Play</button>
+                <button class="music-btn-nav next-btn" onclick="playNextSong()"
+                    title="Next Song">⏭️</button>
             </div>
-            <div class="text-info">
-                <h1>Shree Radhe Shyam <i class="fa fa-check-circle" style="color:#ffffff; font-size: 1rem;"></i></h1>
-                <p>@shreeji01008 • Devotional & Music</p>
-                <a href="https://www.youtube.com/@shreeji01008" target="_blank">
-                    <button class="subscribe-btn">Subscribe</button>
-                </a>
+        </nav>
+
+        <header class="channel-header" id="home">
+            <div class="banner-container">
+                <img src="banner.jpg" alt="Channel Banner" class="banner-img">
             </div>
-        </div>
-    </header>
 
-    <div class="content-area">
+            <div class="channel-info">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Logo" class="main-logo">
+                </div>
+                <div class="text-info">
+                    <h1>Shree Radhe Shyam <i class="fa fa-check-circle"
+                            style="color:#ffffff; font-size: 1rem;"></i></h1>
+                    <p>@shreeji01008 • Devotional & Music</p>
+                    <a href="https://www.youtube.com/@shreeji01008"
+                        target="_blank">
+                        <button class="subscribe-btn">Subscribe</button>
+                    </a>
+                </div>
+            </div>
+        </header>
 
-        <div class="scroll-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/10609/10609062.png" class="mor-pankh" alt="Mor Pankh">
-            
-            <div class="royal-scroll">
-                <div class="scroll-content">
-                    <div class="header-decoration">॥ जय श्री राधे ॥</div>
-                    
-                    <p id="quote" class="scroll-text">लोड हो रहा है...</p>
-                    
-                    <div class="footer-decoration">
-                        <i class="fas fa-om"></i>
-                    </div>
+        <div class="content-area">
 
-                    <div class="scroll-buttons">
-                        <button class="scroll-btn refresh" onclick="getRandomQuote()">
-                            <i class="fas fa-sync-alt"></i> नया
-                        </button>
-                        <button class="scroll-btn share" onclick="shareOnWhatsapp()">
-                            <i class="fab fa-whatsapp"></i> शेयर
-                        </button>
+            <div class="scroll-container">
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/10609/10609062.png"
+                    class="mor-pankh" alt="Mor Pankh">
+
+                <div class="royal-scroll">
+                    <div class="scroll-content">
+                        <div class="header-decoration">॥ जय श्री राधे ॥</div>
+
+                        <p id="quote" class="scroll-text">लोड हो रहा है...</p>
+
+                        <div class="footer-decoration">
+                            <i class="fas fa-om"></i>
+                        </div>
+
+                        <div class="scroll-buttons">
+                            <button class="scroll-btn refresh"
+                                onclick="getRandomQuote()">
+                                <i class="fas fa-sync-alt"></i> नया
+                            </button>
+                            <button class="scroll-btn share"
+                                onclick="shareOnWhatsapp()">
+                                <i class="fab fa-whatsapp"></i> शेयर
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card" id="jaap">
-            <h2>📿 डिजिटल जाप माला</h2>
-            <p>क्लिक करें और नाम जपें</p>
-            <div class="jaap-circle" onclick="countJaap()" id="counterBtn">0</div>
-            <p class="reset-link" onclick="resetJaap()">रिसेट करें (Reset)</p>
-        </div>
-
-        <div class="card" id="video">
-            <h2>▶️ हमारे भजन सुनें</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=PLrzxLmufKBnY4mxgJeH9jhYd_085bQh6w" frameborder="0" allowfullscreen></iframe>
+            <div class="card" id="jaap">
+                <h2>📿 डिजिटल जाप माला</h2>
+                <p>क्लिक करें और नाम जपें</p>
+                <div class="jaap-circle" onclick="countJaap()"
+                    id="counterBtn">0</div>
+                <p class="reset-link" onclick="resetJaap()">रिसेट करें
+                    (Reset)</p>
             </div>
-        </div>
 
-        <div class="card" id="aarti">
-            <h2>📖 आरती संग्रह</h2>
-            <select class="aarti-dropdown" id="aartiSelector" onchange="showAarti()">
-                <option value="ganesh">श्री गणेश जी की आरती</option>
-                <option value="hanuman">श्री हनुमान चालीसा</option>
-                <option value="krishna">आरती कुंजबिहारी की</option>
-                <option value="jagdish">ओम जय जगदीश हरे</option>
-                <option value="shiv">शिव जी की आरती</option>
-                <option value="shyam">खाटू श्याम जी की आरती</option>
-            </select>
-            <div class="aarti-text" id="aartiDisplay">
-                जय गणेश जय गणेश, जय गणेश देवा...
+            <div class="card" id="video">
+                <h2>▶️ हमारे भजन सुनें</h2>
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/videoseries?list=PLrzxLmufKBnY4mxgJeH9jhYd_085bQh6w"
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
+
+            <div class="card" id="aarti">
+                <h2>📖 आरती संग्रह</h2>
+                <select class="aarti-dropdown" id="aartiSelector"
+                    onchange="showAarti()">
+                    <option value="ganesh">श्री गणेश जी की आरती</option>
+                    <option value="hanuman">श्री हनुमान चालीसा</option>
+                    <option value="krishna">आरती कुंजबिहारी की</option>
+                    <option value="jagdish">ओम जय जगदीश हरे</option>
+                    <option value="shiv">शिव जी की आरती</option>
+                    <option value="shyam">खाटू श्याम जी की आरती</option>
+                </select>
+                <div class="aarti-text" id="aartiDisplay">
+                    जय गणेश जय गणेश, जय गणेश देवा...
+                </div>
+            </div>
+
         </div>
+        <footer class="footer">
+            <p>© 2026 JAI SHREE RAM ONLINE SERVICES</p>
+            <p>Created with devotion by <span>Sunil Saini</span></p>
+        </footer>
 
-    </div>
-
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
-
