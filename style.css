@@ -1,4 +1,4 @@
-/* --- style.css (Updated Golden Theme) --- */
+/* --- style.css (Final Updated Version) --- */
 
 /* 1. General Settings (शाही बैकग्राउंड) */
 :root {
@@ -12,14 +12,14 @@ body {
     margin: 0; padding: 0; font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
     color: var(--text-color);
-    padding-bottom: 80px; /* नीचे के मेन्यू के लिए जगह */
+    padding-bottom: 90px; /* नीचे जगह बढ़ाई ताकि बटन न कटें */
     min-height: 100vh;
 }
 
 /* एनीमेशन कैनवास */
 #flowerCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-/* --- 2. BOTTOM NAVIGATION BAR (फिक्स्ड) --- */
+/* --- 2. BOTTOM NAVIGATION BAR --- */
 .navbar {
     position: fixed;
     bottom: 20px;
@@ -42,10 +42,48 @@ body {
 .nav-links li a { text-decoration: none; color: #8D6E63; font-size: 0.8rem; display: flex; flex-direction: column; align-items: center; transition: 0.3s; }
 .nav-links li a i { font-size: 1.4rem; margin-bottom: 5px; }
 .nav-links li a:hover, .nav-links li a.active { color: #FF6F00; font-weight: bold; }
-/* मोबाइल पर एक्स्ट्रा चीजें छुपाएं */
-.nav-brand, .music-controls { display: none; } 
 
-/* --- 3. CHANNEL HEADER --- */
+/* --- 3. MUSIC CONTROLS (यहाँ बदलाव किया है) --- */
+.music-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* मोबाइल पर म्यूजिक बटन को ऊपर तैराएं (Floating) */
+@media (max-width: 600px) {
+    .nav-brand { display: none; } /* ब्रांड नाम छुपाएं */
+    
+    .music-controls {
+        display: flex !important; /* जरूर दिखाएं */
+        position: absolute;
+        top: -60px; /* नेविगेशन बार के ऊपर */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9); /* हल्का पारदर्शी */
+        padding: 8px 20px;
+        border-radius: 30px;
+        border: 2px solid #FFD54F;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        z-index: 1001;
+        width: max-content;
+    }
+}
+
+.music-btn-nav { 
+    background: linear-gradient(to right, #FF8F00, #FF6F00); 
+    color: white; 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.music-btn-nav:hover { transform: scale(1.05); }
+
+/* --- 4. CHANNEL HEADER --- */
 header.channel-header {
     background: linear-gradient(to right, #FF6F00, #FFCA28);
     color: white;
@@ -65,7 +103,7 @@ header.channel-header {
     flex-direction: column; 
     align-items: center; 
     text-align: center; 
-    margin-top: -50px; /* लोगो को ऊपर लाने के लिए */
+    margin-top: -50px; 
     position: relative;
     z-index: 11;
 }
@@ -78,18 +116,17 @@ header.channel-header {
 .text-info h1 { margin: 10px 0 5px 0; font-size: 1.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 .text-info p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
 
-/* सब्सक्राइब बटन */
 .subscribe-btn {
     background: white; color: #D32F2F; border: none; padding: 10px 25px; 
     border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;
 }
 
-/* --- 4. CONTENT AREA & CARDS (फिक्स: मार्जिन ठीक किया) --- */
+/* --- 5. CONTENT AREA & CARDS --- */
 .content-area { 
     padding: 20px; 
     max-width: 800px; 
-    margin: 20px auto 0 auto; /* ऊपर 20px का गैप ताकि हेडर से न चिपके */
+    margin: 20px auto 0 auto; 
     position: relative; 
     z-index: 5; 
 }
@@ -99,7 +136,7 @@ header.channel-header {
     margin-bottom: 30px;
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2); /* सुनहरी परछाई */
+    box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2);
     text-align: center;
     border: 2px solid #FFECB3;
 }
@@ -114,7 +151,7 @@ header.channel-header {
     padding-bottom: 5px;
 }
 
-/* --- 5. ROYAL SCROLL (सुविचार) --- */
+/* --- 6. ROYAL SCROLL (सुविचार) --- */
 .scroll-container { position: relative; max-width: 550px; margin: 0 auto 30px auto; padding-top: 10px; }
 .mor-pankh { position: absolute; top: -30px; right: -10px; width: 70px; transform: rotate(15deg); z-index: 20; }
 .royal-scroll {
@@ -126,15 +163,12 @@ header.channel-header {
 .header-decoration, .footer-decoration { color: #FF6F00; font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
 .scroll-text { font-size: 1.3rem; color: #4E342E; font-weight: 600; min-height: 60px; line-height: 1.5; }
 
-/* बटन (Share/Refresh) */
 .scroll-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-.scroll-btn {
-    border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; color: white;
-}
+.scroll-btn { border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; color: white; }
 .scroll-btn.refresh { background: #FF8F00; }
 .scroll-btn.share { background: #25D366; }
 
-/* --- 6. JAAP MALA --- */
+/* --- 7. JAAP MALA --- */
 .jaap-circle {
     width: 110px; height: 110px; border-radius: 50%;
     background: linear-gradient(135deg, #FF8F00, #FFCA28);
@@ -144,7 +178,7 @@ header.channel-header {
 }
 .jaap-circle:active { transform: scale(0.95); }
 
-/* --- 7. VIDEO & AARTI & LYRICS --- */
+/* --- 8. VIDEO & LYRICS & AARTI --- */
 .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; border: 2px solid #FFECB3; }
 .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
@@ -153,14 +187,14 @@ header.channel-header {
     border: 1px solid #FFF59D; color: #4E342E; text-align: left;
     line-height: 1.6;
 }
-.lyrics-text { text-align: center; } /* लिरिक्स बीच में */
+.lyrics-text { text-align: center; }
 
 select.aarti-dropdown {
     width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px;
     background: #FFF8E1; border: 2px solid #FFD54F; color: #5D4037; font-size: 1rem;
 }
 
-/* --- 8. FOOTER --- */
+/* --- 9. FOOTER --- */
 .footer {
     text-align: center; padding: 30px 20px;
     background: linear-gradient(to right, #FF6F00, #FFCA28);
