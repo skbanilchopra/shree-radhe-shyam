@@ -1,186 +1,301 @@
 <!DOCTYPE html>
 <html lang="hi">
-<head>
-    <meta name="google-site-verification" content="nVAlLeihbtm4SBmvEE8T47BFvuRBPEggGx1dFdugCx0" />
-    <meta charset="UTF-8">
-    <meta name="description" content="Shree Radhe Shyam - भजनों, आरती और दिव्य सुविचारों का संगम। सुनील सैनी द्वारा निर्मित।">
-    <meta name="keywords" content="Shree Radhe Shyam, Sunil Saini, Krishna Bhajan, Aarti Collection, Jaap Mala, Jai Shree Ram Online Services, Haryanvi Bhajan Lyrics">
-    <meta name="author" content="Sunil Saini">
-    <meta property="og:title" content="Shree Radhe Shyam - Home of Devotion">
-    <meta property="og:description" content="भजन और आरती का दिव्य अनुभव।">
-    <meta property="og:image" content="logo.jpg">
-    <meta property="og:url" content="https://skbanilchopra.github.io/shree-radhe-shyam/">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Shree Radhe Shyam - Sunil Saini</title>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <head>
+        <meta name="google-site-verification"
+            content="nVAlLeihbtm4SBmvEE8T47BFvuRBPEggGx1dFdugCx0" />
+        <meta charset="UTF-8">
+        <meta name="description"
+            content="Shree Radhe Shyam - भजनों, आरती और दिव्य सुविचारों का संगम। सुनील सैनी द्वारा निर्मित।">
+        <meta name="keywords"
+            content="Shree Radhe Shyam, Sunil Saini, Krishna Bhajan, Aarti Collection, Jaap Mala, Jai Shree Ram Online Services, Haryanvi Bhajan Lyrics">
+        <meta name="author" content="Sunil Saini">
+        <meta property="og:title"
+            content="Shree Radhe Shyam - Home of Devotion">
+        <meta property="og:description" content="भजन और आरती का दिव्य अनुभव।">
+        <meta property="og:image" content="logo.jpg">
+        <meta property="og:url"
+            content="https://skbanilchopra.github.io/shree-radhe-shyam/">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <canvas id="flowerCanvas"></canvas>
-    <audio id="bgMusic" loop><source src="bhajan.mp3" type="audio/mpeg"></audio>
+        <title>Shree Radhe Shyam - Sunil Saini</title>
 
-    <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="#home"><i class="fa fa-home"></i> <span>Home</span></a></li>
-            <li><a href="#video"><i class="fa fa-play-circle"></i> <span>Bhajan</span></a></li>
-            <li><a href="#aarti"><i class="fa fa-book-open"></i> <span>Aarti</span></a></li>
-            <li><a href="#lyrics"><i class="fa fa-music"></i> <span>Lyrics</span></a></li>
-            <li><a href="#about"><i class="fa fa-info-circle"></i> <span>About</span></a></li>
-        </ul>
-    </nav>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
 
-    <header class="channel-header" id="home">
-        <div class="banner-container">
-            <img src="banner.jpg" alt="Channel Banner" class="banner-img">
-        </div>
-        <div class="channel-info">
-            <div class="logo-container">
-                <img src="logo.jpg" alt="Logo" class="main-logo">
+        <canvas id="flowerCanvas"></canvas>
+        <audio id="bgMusic" loop><source src="bhajan.mp3"
+                type="audio/mpeg"></audio>
+
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#home"><i class="fa fa-home"></i>
+                        <span>Home</span></a></li>
+                <li><a href="#video"><i class="fa fa-play-circle"></i>
+                        <span>Bhajan</span></a></li>
+                <li><a href="#aarti"><i class="fa fa-book-open"></i>
+                        <span>Aarti</span></a></li>
+                <li><a href="#lyrics"><i class="fa fa-music"></i>
+                        <span>Lyrics</span></a></li>
+                <li><a href="#about"><i class="fa fa-info-circle"></i>
+                        <span>About</span></a></li>
+            </ul>
+        </nav>
+
+        <header class="channel-header" id="home">
+            <div class="banner-container">
+                <img src="banner.jpg" alt="Channel Banner" class="banner-img">
             </div>
-            <div class="text-info">
-                <h1>Shree Radhe Shyam <i class="fa fa-check-circle" style="color:#ffffff; font-size: 1rem;"></i></h1>
-                <p>@shreeji01008 • Sunil Saini • Devotional</p>
-                <a href="https://www.youtube.com/@shreeji01008" target="_blank">
-                    <button class="subscribe-btn"><i class="fab fa-youtube"></i> Subscribe</button>
-                </a>
-                <div class="header-music-controls" style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
-    <button onclick="toggleMusic()" style="background: white; color: #FF8F00; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        🎵 Play Music
-    </button>
-    <button onclick="playNextSong()" style="background: white; color: #FF8F00; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        ⏭️ Next
-    </button>
-</div>
-            </div>
-        </div>
-    </header>
-
-    <div class="content-area">
-
-        <div class="scroll-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/10609/10609062.png" class="mor-pankh" alt="Mor Pankh">
-            <div class="royal-scroll">
-                <div class="scroll-content">
-                    <div class="header-decoration">॥ जय श्री राधे ॥</div>
-                    <p id="quote" class="scroll-text">लोड हो रहा है...</p>
-                    <div class="footer-decoration"><i class="fas fa-om"></i></div>
-                    <div class="scroll-buttons">
-                        <button class="scroll-btn refresh" onclick="getRandomQuote()"><i class="fas fa-sync-alt"></i> नया सुविचार</button>
-                        <button class="scroll-btn share" onclick="shareOnWhatsapp()"><i class="fab fa-whatsapp"></i> शेयर करें</button>
+            <div class="channel-info">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Logo" class="main-logo">
+                </div>
+                <div class="text-info">
+                    <h1>Shree Radhe Shyam <i class="fa fa-check-circle"
+                            style="color:#ffffff; font-size: 1rem;"></i></h1>
+                    <p>@shreeji01008 • Sunil Saini • Devotional</p>
+                    <a href="https://www.youtube.com/@shreeji01008"
+                        target="_blank">
+                        <button class="subscribe-btn"><i
+                                class="fab fa-youtube"></i> Subscribe</button>
+                    </a>
+                    <div class="header-music-controls"
+                        style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
+                        <button onclick="toggleMusic()"
+                            style="background: white; color: #FF8F00; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                            🎵 Play Music
+                        </button>
+                        <button onclick="playNextSong()"
+                            style="background: white; color: #FF8F00; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                            ⏭️ Next
+                        </button>
                     </div>
                 </div>
             </div>
+        </header>
+
+        <div class="content-area">
+
+            <div class="scroll-container">
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/10609/10609062.png"
+                    class="mor-pankh" alt="Mor Pankh">
+                <div class="royal-scroll">
+                    <div class="scroll-content">
+                        <div class="header-decoration">॥ जय श्री राधे ॥</div>
+                        <p id="quote" class="scroll-text">लोड हो रहा है...</p>
+                        <div class="footer-decoration"><i
+                                class="fas fa-om"></i></div>
+                        <div class="scroll-buttons">
+                            <button class="scroll-btn refresh"
+                                onclick="getRandomQuote()"><i
+                                    class="fas fa-sync-alt"></i> नया
+                                सुविचार</button>
+                            <button class="scroll-btn share"
+                                onclick="shareOnWhatsapp()"><i
+                                    class="fab fa-whatsapp"></i> शेयर
+                                करें</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="smart-player">
+
+                <div class="player-header"
+                    style="background: #FFF8E1; padding: 20px; border-radius: 15px; border: 2px solid #FFD54F; margin-bottom: 25px;">
+                    <h2 id="song-title"
+                        style="color: #D32F2F; margin-top: 0;">1. बंसी भी भई
+                        बावरी</h2>
+                    <audio id="mainAudio" controls controlsList="nodownload"
+                        oncontextmenu="return false;"
+                        style="width: 100%; margin-top: 10px; border-radius: 30px;">
+                    </audio>
+                </div>
+
+                <div class="playlist-buttons"
+                    style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px;">
+                    <button onclick="playSong(0)" class="p-btn active">1. बंसी
+                        बावरी</button>
+                    <button onclick="playSong(1)" class="p-btn">2. मैं तो हूँ
+                        हैरान</button>
+                    <button onclick="playSong(2)" class="p-btn">3. राधा नाम की
+                        मिश्री</button>
+                    <button onclick="playSong(3)" class="p-btn">4. राधे की
+                        सरकार</button>
+                    <button onclick="playSong(4)" class="p-btn">5. गंगाधारी
+                        शंभू</button>
+                </div>
+
+                <div class="lyrics-container">
+                    <h3
+                        style="color: #FF6F00; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">🎵
+                        भजन के बोल (Lyrics)</h3>
+
+                    <div id="dynamic-lyrics" class="lyrics-text"
+                        style="max-height: 400px; overflow-y: auto; text-align: center; line-height: 1.8;">
+                        लोड हो रहा है...
+                    </div>
+                </div>
+            </div>
+
+            <style>
+    /* बटन का स्टाइल */
+    .p-btn {
+        background: white;
+        border: 1px solid #FF8F00;
+        color: #5D4037;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        white-space: nowrap; /* बटन को एक लाइन में रखेगा */
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+    /* जो गाना चल रहा है उसका बटन अलग दिखेगा */
+    .p-btn.active, .p-btn:hover {
+        background: linear-gradient(to right, #FF8F00, #FF6F00);
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+</style>
+
+            <div class="card" id="jaap">
+                <h2>📿 डिजिटल जाप माला</h2>
+                <p>यहाँ क्लिक करें और नाम जपें</p>
+                <div class="jaap-circle" onclick="countJaap()"
+                    id="counterBtn">0</div>
+                <p class="reset-link" onclick="resetJaap()"
+                    style="cursor: pointer; text-decoration: underline;">🔄
+                    रिसेट करें</p>
+            </div>
+
+            <div class="card" id="video">
+                <h2>▶️ हमारे नए भजन सुनें</h2>
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/videoseries?list=PLrzxLmufKBnY4mxgJeH9jhYd_085bQh6w"
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="card" id="lyrics">
+                <h2>🎵 भजन: मेरा दाऊ बड़ा बलवान</h2>
+                <p style="color: #FF6F00; font-weight: bold;">(तर्ज़: हो जमुना
+                    किनारे बाँसुरी बाजे...)</p>
+                <p style="color: #666; font-size: 0.9rem;">Singer & Lyrics:
+                    Sunil Saini</p>
+
+                <div class="lyrics-text"
+                    style="text-align: center; margin-top: 20px; line-height: 1.8;">
+
+                    <p><strong>(मुखड़ा)</strong><br>
+                        हो... सिर पे मुकुट और कानों में कुंडल, चेहरा बड़ा निराला
+                        रे।<br>
+                        कान्हा से पहले पूजे दुनिया, दाऊ का रूप विशाला रे।<br>
+                        भक्तों की तो सुन लेते हैं, झटपट मन की बात...<br>
+                        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे
+                            दिन और रात) x2</span></p>
+
+                    <p><strong>(अंतरा 1: बचपन और रक्षा)</strong><br>
+                        जब-जब कान्हा गैया चराने, मधुबन में जाते थे,<br>
+                        साये की तरह दाऊ भैया, संग-संग में आते थे।<br>
+                        राक्षस कोई आ जाए तो, बन जाते थे ढाल...<br>
+                        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे
+                            दिन और रात)</span></p>
+
+                    <p><strong>(अंतरा 2: असुर वध लीला)</strong><br>
+                        धेनुकासुर ने जब ग्वालों को, वन में डराया था,<br>
+                        पकड़ के उसकी टांग दाऊ ने, फल सा गिराया था।<br>
+                        मुक्का मार प्रलम्बासुर का, कर दिया काम तमाम...<br>
+                        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे
+                            दिन और रात)</span></p>
+
+                    <p><strong>(अंतरा 3: भाई का प्रेम)</strong><br>
+                        थक जाते जब कृष्ण कन्हाई, दाऊ पाँव दबाते हैं,<br>
+                        भैया की गोदी में कान्हा, सुख की नींद सो जाते हैं।<br>
+                        शेषनाग का फन फैलाकर, करते रक्षा आज...<br>
+                        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे
+                            दिन और रात)</span></p>
+
+                    <p><strong>(समापन)</strong><br>
+                        त्रेता युग में लक्ष्मण बन कर, राम की सेवा की,<br>
+                        द्वापर में अब बड़े भाई की, रीत निभाते जी।<br>
+                        'सुनील' खड़ा है द्वार तुम्हारे, रख लो मेरे हाथ...<br>
+                        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे
+                            दिन और रात)</span></p>
+
+                    <p
+                        style="font-size: 1.2rem; color: #FF6F00; font-weight: bold; margin-top: 15px;">॥
+                        जय दाऊ दयाल ॥</p>
+                </div>
+            </div>
+
+            <div class="card" id="aarti">
+                <h2>📖 आरती संग्रह</h2>
+                <select class="aarti-dropdown" id="aartiSelector"
+                    onchange="showAarti()">
+                    <option value="ganesh">श्री गणेश जी की आरती</option>
+                    <option value="hanuman">श्री हनुमान चालीसा</option>
+                    <option value="krishna">आरती कुंजबिहारी की</option>
+                    <option value="jagdish">ओम जय जगदीश हरे</option>
+                    <option value="shiv">शिव जी की आरती</option>
+                    <option value="shyam">खाटू श्याम जी की आरती</option>
+                </select>
+                <div class="aarti-text" id="aartiDisplay"
+                    style="max-height: 300px; overflow-y: auto;">
+                    जय गणेश जय गणेश, जय गणेश देवा...<br>(कृपया ऊपर से आरती
+                    चुनें)
+                </div>
+            </div>
+
+            <section class="card" id="about">
+                <h2>🙏 हमारे बारे में (About Us)</h2>
+                <div class="about-content">
+                    <p><strong>Shree Radhe Shyam</strong> एक डिजिटल धार्मिक मंच
+                        है। इस वेबसाइट और YouTube चैनल के संस्थापक <strong>Sunil
+                            Saini</strong> हैं।</p>
+                    <p>यहाँ आपको मिलेंगे: 🎵 Haryanvi Bhajans, 📖 Daily Aarti,
+                        और ✍️ Lyrics।</p>
+                    <p
+                        style="margin-top: 15px; border-top: 1px dashed #FFD54F; padding-top: 10px;">
+                        चाहे आप <strong>"Jai Shree Ram Online Services"</strong>
+                        खोज रहे हों या भजन, हम आपकी सेवा में समर्पित हैं।
+                    </p>
+                </div>
+            </section>
+
+            <section class="card" id="contact">
+                <h2>📩 संपर्क करें (Contact Us)</h2>
+                <div class="contact-links"
+                    style="display: flex; justify-content: center; gap: 20px; margin-top: 25px; flex-wrap: wrap;">
+                    <a href="https://wa.me/918814867940" target="_blank"
+                        class="scroll-btn share"
+                        style="text-decoration: none; flex: 1 1 150px;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:cscahulana@gmail.com"
+                        class="scroll-btn refresh"
+                        style="text-decoration: none; background: linear-gradient(to right, #D32F2F, #C2185B); flex: 1 1 150px;">
+                        <i class="fa fa-envelope"></i> Email
+                    </a>
+                </div>
+                <div
+                    style="margin-top: 25px; font-size: 1rem; color: #FF8F00; font-weight: bold;">
+                    <i class="fa fa-map-marker-alt"></i> JAI SHREE RAM ONLINE
+                    SERVICES, Haryana
+                </div>
+            </section>
+
         </div>
 
-        <div class="card" id="jaap">
-            <h2>📿 डिजिटल जाप माला</h2>
-            <p>यहाँ क्लिक करें और नाम जपें</p>
-            <div class="jaap-circle" onclick="countJaap()" id="counterBtn">0</div>
-            <p class="reset-link" onclick="resetJaap()" style="cursor: pointer; text-decoration: underline;">🔄 रिसेट करें</p>
-        </div>
+        <footer class="footer">
+            <p>© 2026 JAI SHREE RAM ONLINE SERVICES</p>
+            <p>Created with devotion by <span>Sunil Saini</span></p>
+        </footer>
 
-        <div class="card" id="video">
-            <h2>▶️ हमारे नए भजन सुनें</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=PLrzxLmufKBnY4mxgJeH9jhYd_085bQh6w" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="card" id="lyrics">
-    <h2>🎵 भजन: मेरा दाऊ बड़ा बलवान</h2>
-    <p style="color: #FF6F00; font-weight: bold;">(तर्ज़: हो जमुना किनारे बाँसुरी बाजे...)</p>
-    <p style="color: #666; font-size: 0.9rem;">Singer & Lyrics: Sunil Saini</p>
-    
-    <div class="lyrics-text" style="text-align: center; margin-top: 20px; line-height: 1.8;">
-        
-        <p><strong>(मुखड़ा)</strong><br>
-        हो... सिर पे मुकुट और कानों में कुंडल, चेहरा बड़ा निराला रे।<br>
-        कान्हा से पहले पूजे दुनिया, दाऊ का रूप विशाला रे।<br>
-        भक्तों की तो सुन लेते हैं, झटपट मन की बात...<br>
-        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे दिन और रात) x2</span></p>
-
-        <p><strong>(अंतरा 1: बचपन और रक्षा)</strong><br>
-        जब-जब कान्हा गैया चराने, मधुबन में जाते थे,<br>
-        साये की तरह दाऊ भैया, संग-संग में आते थे।<br>
-        राक्षस कोई आ जाए तो, बन जाते थे ढाल...<br>
-        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे दिन और रात)</span></p>
-
-        <p><strong>(अंतरा 2: असुर वध लीला)</strong><br>
-        धेनुकासुर ने जब ग्वालों को, वन में डराया था,<br>
-        पकड़ के उसकी टांग दाऊ ने, फल सा गिराया था।<br>
-        मुक्का मार प्रलम्बासुर का, कर दिया काम तमाम...<br>
-        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे दिन और रात)</span></p>
-
-        <p><strong>(अंतरा 3: भाई का प्रेम)</strong><br>
-        थक जाते जब कृष्ण कन्हाई, दाऊ पाँव दबाते हैं,<br>
-        भैया की गोदी में कान्हा, सुख की नींद सो जाते हैं।<br>
-        शेषनाग का फन फैलाकर, करते रक्षा आज...<br>
-        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे दिन और रात)</span></p>
-
-        <p><strong>(समापन)</strong><br>
-        त्रेता युग में लक्ष्मण बन कर, राम की सेवा की,<br>
-        द्वापर में अब बड़े भाई की, रीत निभाते जी।<br>
-        'सुनील' खड़ा है द्वार तुम्हारे, रख लो मेरे हाथ...<br>
-        <span style="color: #D32F2F;">(साथ निभावे दाऊ भैया, जैसे दिन और रात)</span></p>
-        
-        <p style="font-size: 1.2rem; color: #FF6F00; font-weight: bold; margin-top: 15px;">॥ जय दाऊ दयाल ॥</p>
-    </div>
-</div>
-
-
-        <div class="card" id="aarti">
-            <h2>📖 आरती संग्रह</h2>
-            <select class="aarti-dropdown" id="aartiSelector" onchange="showAarti()">
-                <option value="ganesh">श्री गणेश जी की आरती</option>
-                <option value="hanuman">श्री हनुमान चालीसा</option>
-                <option value="krishna">आरती कुंजबिहारी की</option>
-                <option value="jagdish">ओम जय जगदीश हरे</option>
-                <option value="shiv">शिव जी की आरती</option>
-                <option value="shyam">खाटू श्याम जी की आरती</option>
-            </select>
-            <div class="aarti-text" id="aartiDisplay" style="max-height: 300px; overflow-y: auto;">
-                जय गणेश जय गणेश, जय गणेश देवा...<br>(कृपया ऊपर से आरती चुनें)
-            </div>
-        </div>
-
-        <section class="card" id="about">
-            <h2>🙏 हमारे बारे में (About Us)</h2>
-            <div class="about-content">
-                <p><strong>Shree Radhe Shyam</strong> एक डिजिटल धार्मिक मंच है। इस वेबसाइट और YouTube चैनल के संस्थापक <strong>Sunil Saini</strong> हैं।</p>
-                <p>यहाँ आपको मिलेंगे: 🎵 Haryanvi Bhajans, 📖 Daily Aarti, और ✍️ Lyrics।</p>
-                <p style="margin-top: 15px; border-top: 1px dashed #FFD54F; padding-top: 10px;">
-                    चाहे आप <strong>"Jai Shree Ram Online Services"</strong> खोज रहे हों या भजन, हम आपकी सेवा में समर्पित हैं।
-                </p>
-            </div>
-        </section>
-
-        <section class="card" id="contact">
-            <h2>📩 संपर्क करें (Contact Us)</h2>
-            <div class="contact-links" style="display: flex; justify-content: center; gap: 20px; margin-top: 25px; flex-wrap: wrap;">
-                <a href="https://wa.me/918814867940" target="_blank" class="scroll-btn share" style="text-decoration: none; flex: 1 1 150px;">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="mailto:cscahulana@gmail.com" class="scroll-btn refresh" style="text-decoration: none; background: linear-gradient(to right, #D32F2F, #C2185B); flex: 1 1 150px;">
-                    <i class="fa fa-envelope"></i> Email
-                </a>
-            </div>
-            <div style="margin-top: 25px; font-size: 1rem; color: #FF8F00; font-weight: bold;">
-                <i class="fa fa-map-marker-alt"></i> JAI SHREE RAM ONLINE SERVICES, Haryana
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="footer">
-        <p>© 2026 JAI SHREE RAM ONLINE SERVICES</p>
-        <p>Created with devotion by <span>Sunil Saini</span></p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
-
-
