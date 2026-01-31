@@ -226,3 +226,79 @@ select.aarti-dropdown {
     /* अगर ब्रांड नाम हटाना है तो */
     .nav-brand { display: none !important; } 
 }
+/* --- Channels Grid Design (Layout Fix) --- */
+
+.channels-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* मोबाइल पर 2 कॉलम बनेंगे */
+    gap: 10px; /* बीच में थोड़ी जगह */
+    padding: 10px;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.channel-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* मोबाइल पर फोटो ऊपर और टेक्स्ट नीचे */
+    align-items: center; /* सेंटर में लाएं */
+    text-align: center;
+    width: 100%; /* पूरी जगह लेगा */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 2px solid #FFD54F;
+    box-sizing: border-box; /* पैडिंग को साइज में गिनेगा */
+}
+
+/* इमेज को थोड़ा छोटा और सेंटर करें */
+.channel-card img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-bottom: 5px; /* फोटो के नीचे गैप */
+    border: 2px solid #eee;
+}
+
+.ch-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 0.85rem; /* फॉन्ट थोड़ा छोटा किया */
+    color: #333;
+    white-space: nowrap; /* टेक्स्ट एक लाइन में */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sub-btn {
+    background: #cc0000;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+/* म्यूजिक बटन को भी थोड़ा सेट करें */
+.header-music-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.header-music-controls button {
+    font-size: 0.8rem !important;
+    padding: 8px 15px !important;
+}
+
+/* अगर स्क्रीन बहुत बड़ी है (Laptop), तो 4 एक लाइन में दिखाओ */
+@media (min-width: 768px) {
+    .channels-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
