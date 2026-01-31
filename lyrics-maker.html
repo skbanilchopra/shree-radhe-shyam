@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Lyrics Maker - Sun-Sid AI</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #FFF8E1;
+            color: #3E2723;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 2px solid #FFD54F;
+        }
+        h1 { color: #D32F2F; margin-bottom: 5px; }
+        p { color: #666; font-size: 0.9rem; }
+
+        /* माइक बटन एनीमेशन */
+        .mic-btn {
+            background: #D32F2F;
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+            transition: 0.3s;
+        }
+        .mic-btn.listening {
+            background: #2ecc71;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+
+        /* टेक्स्ट एरिया */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #FFD54F;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .controls { display: flex; gap: 10px; justify-content: center; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+        }
+        .copy-btn { background: #FF8F00; }
+        .clear-btn { background: #555; }
+        
+        .status { font-weight: bold; color: #D32F2F; height: 20px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎙️ बोल से टेक्स्ट (Lyrics Maker)</h1>
+        <p>गाना चलाएं और माइक बटन दबाएं, यह हिंदी में लिखेगा।</p>
+
+        <div class="status" id="statusText">तैयार है...</div>
+
+        <button onclick="toggleListening()" class="mic-btn" id="micButton">🎙️</button>
+
+        <textarea id="resultText" placeholder="यहाँ आपके भजन के बोल अपने आप टाइप होंगे..."></textarea>
+
+        <div class="controls">
+            <button onclick="copyText()" class="btn copy-btn">📋 कॉपी करें</button>
+            <button onclick="clearText()" class="btn clear-btn">🗑️ साफ़ करें</button>
+        </div>
+    </div>
+
+    <script>
+        // स्पीच रिकग्निशन सेटअप (Google Chrome के लिए)
+        const micBtn = document.getElementById('micButton');
+        const statusText = document.getElementById('statusText');
+        const resultArea = document.getElementById('resultText');
+        
+        let recognition;
+        let isListening = false;
+
+        // चेक करें कि ब्राउज़र सपोर्ट करता है या नहीं
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = true;   // लगातार सुनता रहेगा
+            recognition.interimResults = true; // बोलते समय भी दिखाएगा
+            recognition.lang = 'hi-IN';      // भाषा हिंदी सेट की है
+
+            recognition.onstart = function() {
+                isListening = true;
+                micBtn.classList.add('listening');
+                statusText.innerText = "सुन रहा हूँ... (भजन बजने दें)";
+            };
+
+            recognition.onend = function() {
+                if (isListening) { recognition.start(); } // अगर गलती से बंद हो जाए तो फिर शुरू करें
+                else {
+                    micBtn.classList.remove('listening');
+                    statusText.innerText = "रुका हुआ है।";
+                }
+            };
+
+            recognition.onresult = function(event) {
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript + "।\n";
+                    }
+                }
+                if (finalTranscript !== "") {
+                    // पुराना टेक्स्ट + नया टेक्स्ट
+                    resultArea.value += finalTranscript;
+                    resultArea.scrollTop = resultArea.scrollHeight; // ऑटो स्क्रॉल नीचे
+                }
+            };
+
+            recognition.onerror = function(event) {
+                statusText.innerText = "Error: " + event.error;
+            };
+
+        } else {
+            alert("आपका ब्राउज़र इस फीचर को सपोर्ट नहीं करता। कृपया Google Chrome का उपयोग करें।");
+        }
+
+        function toggleListening() {
+            if (!recognition) return;
+
+            if (isListening) {
+                isListening = false;
+                recognition.stop();
+                micBtn.innerHTML = "🎙️";
+            } else {
+                recognition.start();
+                micBtn.innerHTML = "⬛"; // स्टॉप आइकन
+            }
+        }
+
+        function copyText() {
+            resultArea.select();
+            document.execCommand("copy");
+            alert("लिरिक्स कॉपी हो गए! अब वेबसाइट में पेस्ट करें।");
+        }
+
+        function clearText() {
+            if(confirm("क्या आप सब मिटाना चाहते हैं?")) {
+                resultArea.value = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
