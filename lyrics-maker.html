@@ -3,174 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎵 Lyrics Maker - Sun-Sid AI</title>
+    <title>🎵 Lyrics Maker - Stable Version</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #FFF8E1;
-            color: #3E2723;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 2px solid #FFD54F;
-        }
-        h1 { color: #D32F2F; margin-bottom: 5px; }
-        p { color: #666; font-size: 0.9rem; }
-
-        /* माइक बटन एनीमेशन */
+        body { font-family: sans-serif; background: #FFF3E0; text-align: center; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #FF9800; max-width: 600px; margin: auto; }
+        
+        /* बड़ा माइक बटन */
         .mic-btn {
-            background: #D32F2F;
-            color: white;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
-            transition: 0.3s;
+            width: 100px; height: 100px; border-radius: 50%; border: none;
+            font-size: 3rem; cursor: pointer; margin: 20px 0;
+            background: #D32F2F; color: white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2); transition: 0.3s;
         }
-        .mic-btn.listening {
-            background: #2ecc71;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(46, 204, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
-        }
-
-        /* टेक्स्ट एरिया */
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border: 2px solid #FFD54F;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            resize: none;
-            box-sizing: border-box;
-        }
-
-        .controls { display: flex; gap: 10px; justify-content: center; }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-        .copy-btn { background: #FF8F00; }
+        .mic-btn.active { background: #2ecc71; animation: pulse 1.5s infinite; }
+        
+        textarea { width: 100%; height: 200px; padding: 10px; font-size: 1.1rem; border: 2px solid #FFCC80; border-radius: 10px; box-sizing: border-box; }
+        .status { color: #D84315; font-weight: bold; margin-bottom: 10px; min-height: 25px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; color: white; margin: 5px; font-size: 1rem; }
+        .copy-btn { background: #FF9800; }
         .clear-btn { background: #555; }
         
-        .status { font-weight: bold; color: #D32F2F; height: 20px; margin-bottom: 10px; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🎙️ बोल से टेक्स्ट (Lyrics Maker)</h1>
-        <p>गाना चलाएं और माइक बटन दबाएं, यह हिंदी में लिखेगा।</p>
+        <h2>🎙️ हिंदी लिरिक्स मेकर</h2>
+        <p>माइक दबाएं और स्पष्ट बोलें (या गाना चलाएं)</p>
 
-        <div class="status" id="statusText">तैयार है...</div>
+        <div class="status" id="statusText">माइक बंद है</div>
 
-        <button onclick="toggleListening()" class="mic-btn" id="micButton">🎙️</button>
+        <button onclick="toggleMic()" class="mic-btn" id="micBtn">🎙️</button>
 
-        <textarea id="resultText" placeholder="यहाँ आपके भजन के बोल अपने आप टाइप होंगे..."></textarea>
+        <textarea id="finalText" placeholder="बोल यहाँ आएंगे..."></textarea>
 
-        <div class="controls">
-            <button onclick="copyText()" class="btn copy-btn">📋 कॉपी करें</button>
-            <button onclick="clearText()" class="btn clear-btn">🗑️ साफ़ करें</button>
-        </div>
+        <br>
+        <button onclick="copyText()" class="btn copy-btn">📋 कॉपी</button>
+        <button onclick="document.getElementById('finalText').value=''" class="btn clear-btn">🗑️ साफ़</button>
     </div>
 
     <script>
-        // स्पीच रिकग्निशन सेटअप (Google Chrome के लिए)
-        const micBtn = document.getElementById('micButton');
+        const micBtn = document.getElementById('micBtn');
         const statusText = document.getElementById('statusText');
-        const resultArea = document.getElementById('resultText');
-        
+        const textArea = document.getElementById('finalText');
+
         let recognition;
         let isListening = false;
 
-        // चेक करें कि ब्राउज़र सपोर्ट करता है या नहीं
+        // ब्राउज़र सपोर्ट चेक
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
-            
-            recognition.continuous = true;   // लगातार सुनता रहेगा
-            recognition.interimResults = true; // बोलते समय भी दिखाएगा
-            recognition.lang = 'hi-IN';      // भाषा हिंदी सेट की है
 
+            recognition.continuous = false; // मोबाइल पर 'True' होने से बीप लूप होता है, इसलिए False रखा है
+            recognition.interimResults = false; // सिर्फ फाइनल शब्द दिखाएगा
+            recognition.lang = 'hi-IN'; // हिंदी भाषा
+
+            // जब माइक शुरू हो
             recognition.onstart = function() {
                 isListening = true;
-                micBtn.classList.add('listening');
-                statusText.innerText = "सुन रहा हूँ... (भजन बजने दें)";
+                micBtn.classList.add('active');
+                micBtn.innerHTML = "👂";
+                statusText.innerText = "सुन रहा हूँ...";
             };
 
+            // जब माइक अपने आप बंद हो जाए (बोलना खत्म होने पर)
             recognition.onend = function() {
-                if (isListening) { recognition.start(); } // अगर गलती से बंद हो जाए तो फिर शुरू करें
-                else {
-                    micBtn.classList.remove('listening');
-                    statusText.innerText = "रुका हुआ है।";
+                micBtn.classList.remove('active');
+                micBtn.innerHTML = "🎙️";
+                statusText.innerText = "रुक गया (दुबारा दबाएं)";
+                
+                // मोबाइल के लिए जुगाड़: अगर यूजर ने बंद नहीं किया, तो 1 सेकंड बाद फिर चलाओ
+                if (isListening) {
+                    setTimeout(() => { 
+                        try { recognition.start(); } catch(e) {} 
+                    }, 1000); // 1 सेकंड का ब्रेक ताकि बीप-बीप न हो
                 }
             };
 
+            // जब रिजल्ट आए
             recognition.onresult = function(event) {
-                let finalTranscript = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) {
-                        finalTranscript += event.results[i][0].transcript + "।\n";
-                    }
-                }
-                if (finalTranscript !== "") {
-                    // पुराना टेक्स्ट + नया टेक्स्ट
-                    resultArea.value += finalTranscript;
-                    resultArea.scrollTop = resultArea.scrollHeight; // ऑटो स्क्रॉल नीचे
-                }
+                const transcript = event.results[0][0].transcript;
+                textArea.value += transcript + "।\n";
             };
 
+            // अगर कोई एरर आए
             recognition.onerror = function(event) {
-                statusText.innerText = "Error: " + event.error;
+                console.log("Error:", event.error);
+                if(event.error === 'no-speech') {
+                    statusText.innerText = "कुछ सुनाई नहीं दिया...";
+                } else {
+                    statusText.innerText = "Error: " + event.error;
+                    isListening = false; // एरर आने पर लूप बंद कर दो
+                }
             };
 
         } else {
-            alert("आपका ब्राउज़र इस फीचर को सपोर्ट नहीं करता। कृपया Google Chrome का उपयोग करें।");
+            alert("आपका ब्राउज़र सपोर्ट नहीं करता। Chrome इस्तेमाल करें।");
         }
 
-        function toggleListening() {
+        // बटन दबाने पर क्या हो
+        function toggleMic() {
             if (!recognition) return;
 
             if (isListening) {
                 isListening = false;
                 recognition.stop();
-                micBtn.innerHTML = "🎙️";
             } else {
+                isListening = true;
                 recognition.start();
-                micBtn.innerHTML = "⬛"; // स्टॉप आइकन
             }
         }
 
         function copyText() {
-            resultArea.select();
-            document.execCommand("copy");
-            alert("लिरिक्स कॉपी हो गए! अब वेबसाइट में पेस्ट करें।");
-        }
-
-        function clearText() {
-            if(confirm("क्या आप सब मिटाना चाहते हैं?")) {
-                resultArea.value = "";
-            }
+            textArea.select();
+            document.execCommand('copy');
+            alert("कॉपी हो गया!");
         }
     </script>
 
