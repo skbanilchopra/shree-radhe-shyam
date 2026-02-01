@@ -8,143 +8,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Rozha+One&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PREMIUM DARK THEME --- */
         body { 
             background: linear-gradient(135deg, #1a0b00 0%, #000000 100%); 
-            color: white; 
-            font-family: 'Poppins', sans-serif; 
-            text-align: center; 
-            margin: 0; 
-            padding: 15px;
-            min-height: 100vh;
+            color: white; font-family: 'Poppins', sans-serif; 
+            text-align: center; margin: 0; padding: 15px; min-height: 100vh;
         }
-
         h2 {
-            font-family: 'Rozha One', serif; /* Royal Font */
-            color: #FF9800;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-            letter-spacing: 1px;
+            font-family: 'Rozha One', serif; color: #FF9800;
+            margin: 5px 0 15px 0; text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
         }
-        
-        /* --- GOLDEN GLOW CANVAS --- */
         .canvas-container {
-            position: relative;
-            display: inline-block;
-            padding: 5px;
-            border-radius: 15px;
+            display: inline-block; padding: 5px; border-radius: 15px;
             background: linear-gradient(45deg, #FF9800, #FFD700, #FF9800);
-            box-shadow: 0 0 25px rgba(255, 152, 0, 0.4); /* Glow Effect */
-            margin-bottom: 20px;
+            box-shadow: 0 0 25px rgba(255, 152, 0, 0.4); margin-bottom: 20px;
         }
-
-        canvas {
-            display: block;
-            width: 100%;
-            max-width: 350px;
-            border-radius: 12px;
-            background: #000;
-        }
-
-        /* --- CONTROLS CONTAINER (Glass Effect) --- */
+        canvas { display: block; width: 100%; max-width: 350px; border-radius: 12px; background: #000; }
         .controls {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 15px;
-            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 15px; margin-top: 10px;
         }
-
-        /* Refresh Button */
         .scroll-btn {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: transparent; color: #FFD700; border: 2px solid #FFD700;
+            padding: 10px 25px; border-radius: 50px; font-size: 16px;
+            font-weight: bold; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 10px; transition: 0.3s;
         }
         .scroll-btn:active { transform: scale(0.95); background: rgba(255, 215, 0, 0.1); }
-        
-        /* Gallery Styling */
         .gallery-label { font-size: 13px; color: #aaa; margin: 15px 0 5px 0; text-transform: uppercase; letter-spacing: 1px;}
-        
-        .scroll-gallery {
-            display: flex; 
-            overflow-x: auto; 
-            gap: 12px; 
-            padding: 5px;
-            margin-bottom: 20px;
-            scrollbar-width: none; /* Hide scrollbar */
-        }
-        .scroll-gallery::-webkit-scrollbar { display: none; } /* Hide for Chrome */
-
+        .scroll-gallery { display: flex; overflow-x: auto; gap: 12px; padding: 5px; margin-bottom: 20px; }
         .scroll-gallery img {
-            width: 70px; height: 70px; object-fit: cover;
-            border-radius: 12px; 
-            border: 2px solid rgba(255,255,255,0.2); 
-            cursor: pointer;
-            transition: 0.3s;
+            width: 70px; height: 70px; object-fit: cover; border-radius: 12px; 
+            border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s;
         }
-        .scroll-gallery img:hover { transform: scale(1.1); border-color: #FF9800; }
         .scroll-gallery img:active { border-color: #FFD700; }
-
-        /* --- PULSING SHARE BUTTON --- */
         .share-btn {
             background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white; border: none; padding: 16px 0;
-            border-radius: 50px; font-size: 18px; font-weight: bold;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
-            cursor: pointer; width: 100%;
-            font-family: 'Poppins', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
+            color: white; border: none; padding: 16px 0; border-radius: 50px;
+            font-size: 18px; font-weight: bold; width: 100%;
+            font-family: 'Poppins', sans-serif; text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); animation: pulse 2s infinite;
         }
-        
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
-
     </style>
 </head>
 <body>
-
     <h2>✨ Suvichar Maker ✨</h2>
-
     <div class="canvas-container">
         <canvas id="myCanvas" width="1080" height="1080"></canvas>
     </div>
-
     <div class="controls">
         <button class="scroll-btn refresh" onclick="getRandomQuote()">
             <i class="fas fa-sync-alt"></i> नया सुविचार
         </button>
-
         <p class="gallery-label">पृष्ठभूमि बदलें (Change Background)</p>
-        
         <div class="scroll-gallery" id="miniGallery"></div>
-
         <button onclick="shareCanvas()" class="share-btn">
             <i class="fab fa-whatsapp"></i> Share on WhatsApp
         </button>
     </div>
-
     <script>
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d');
-        
         const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
         const imagePath = rootPath ;
         const quotesFileUrl = rootPath + "quotes.json"; 
@@ -154,30 +83,21 @@
         let currentBg = new Image();
         
         init();
-
         function init() {
             currentBg.src = imagePath + "bg1.webp"; 
             currentBg.crossOrigin = "Anonymous";
-
-            // Silent Error Handling (User doesn't need to see alerts unless critical)
-            currentBg.onerror = function() { console.log("Image Error"); };
-
             fetch(quotesFileUrl + "?t=" + new Date().getTime())
                 .then(r => r.json())
                 .then(data => { allQuotes = data; getRandomQuote(); })
                 .catch(e => { currentQuote = "Jai Shree Radhe Shyam"; if(currentBg.complete) draw(); });
-
             currentBg.onload = function() { draw(); }
         }
-
         function getRandomQuote() {
             if(allQuotes.length > 0) {
                 const randomIndex = Math.floor(Math.random() * allQuotes.length);
                 currentQuote = allQuotes[randomIndex];
                 if(currentBg.complete) draw();
             }
-            
-            // Icon Spin Animation
             const icon = document.querySelector('.fa-sync-alt');
             if(icon) {
                 icon.style.transition = "transform 0.5s";
@@ -185,87 +105,55 @@
                 setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
             }
         }
-
         function draw() {
-            // Draw Background
             ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
-
-            // Premium Overlay (Gradient Shade)
-            // Niche se dark hoga taaki text saaf dikhe
             let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
             gradient.addColorStop(0, "rgba(0,0,0,0.3)");
             gradient.addColorStop(1, "rgba(0,0,0,0.7)");
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // --- TEXT DRAWING ---
+            
             ctx.font = "bold 60px 'Poppins', sans-serif";
             ctx.fillStyle = "#FFFFFF";
             ctx.textAlign = "center";
-            
-            // Text Shadow for readability
             ctx.shadowColor = "rgba(0,0,0,0.8)";
             ctx.shadowBlur = 20;
-            ctx.shadowOffsetX = 4;
-            ctx.shadowOffsetY = 4;
+            ctx.shadowOffsetX = 4; ctx.shadowOffsetY = 4;
 
             wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
             
-            // --- FOOTER BRANDING ---
-            ctx.shadowBlur = 0; // Reset shadow for footer
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-            
-            // Yellow Strip at bottom
-            ctx.fillStyle = "rgba(255, 152, 0, 0.9)"; // Orange semi-transparent
+            ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
+            ctx.fillStyle = "rgba(255, 152, 0, 0.9)"; 
             ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
-            
             ctx.font = "bold 35px 'Poppins', sans-serif";
             ctx.fillStyle = "black";
             ctx.fillText("✨ Shree Radhe Shyam App ✨", canvas.width / 2, canvas.height - 35);
         }
-
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             var words = text.split(' ');
             var line = '';
-            
-            // Center Adjustment
             if(text.length > 50) y = y - (lineHeight * (text.length/40) / 2);
-
             for (var i = 0; i < words.length; i++) {
                 var testLine = line + words[i] + ' ';
                 var metrics = context.measureText(testLine);
                 if (metrics.width > maxWidth && i > 0) {
-                    context.fillText(line, x, y);
-                    line = words[i] + ' ';
-                    y += lineHeight;
-                } else {
-                    line = testLine;
-                }
+                    context.fillText(line, x, y); line = words[i] + ' '; y += lineHeight;
+                } else { line = testLine; }
             }
             context.fillText(line, x, y);
         }
-
-        // Gallery
         const galleryDiv = document.getElementById('miniGallery');
         for(let i=1; i<=50; i++){
             let img = document.createElement('img');
             img.src = imagePath + "bg" + i + ".webp";
             img.crossOrigin = "Anonymous";
-            img.onclick = function() {
-                currentBg.src = this.src; 
-                currentBg.onload = function() { draw(); }
-            };
+            img.onclick = function() { currentBg.src = this.src; currentBg.onload = function() { draw(); } };
             galleryDiv.appendChild(img);
         }
-
         function shareCanvas() {
             var dataURL = canvas.toDataURL("image/png");
-            if(typeof Android !== "undefined") {
-                Android.shareBase64Image(dataURL);
-            } else {
-                alert("Share feature works in App!");
-            }
+            if(typeof Android !== "undefined") { Android.shareBase64Image(dataURL); } 
+            else { alert("Share feature works in App!"); }
         }
     </script>
 </body>
