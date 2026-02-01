@@ -36,6 +36,22 @@
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
+        body { background-color: #0d0d0d; background-image: radial-gradient(circle at top, #2a1500, #000); color: white; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { background: linear-gradient(to bottom, #FF9800, #FF5722); padding: 20px; border-radius: 0 0 25px 25px; box-shadow: 0 5px 20px rgba(255, 87, 34, 0.4); margin-bottom: 20px; }
+        h1 { font-family: 'Rozha One', serif; margin: 0; font-size: 28px; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .daily-card { background: #1a1a1a; border: 1px solid #333; border-radius: 15px; margin: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
+        .daily-label { background: #FFD700; color: #000; font-size: 12px; font-weight: bold; padding: 5px 15px; position: absolute; top: 10px; left: 10px; border-radius: 20px; }
+        #dailyImg { width: 100%; height: auto; min-height: 200px; display: block; }
+        .card-actions { display: flex; justify-content: space-around; padding: 10px; background: #252525; }
+        .action-btn { background: none; border: none; color: #ccc; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .menu-item { background: #1E1E1E; padding: 20px; border-radius: 15px; text-decoration: none; color: white; transition: 0.3s; border: 1px solid #333; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .menu-item:active { transform: scale(0.95); background: #252525; }
+        .icon-box { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 5px; }
+        .maker-btn .icon-box { background: rgba(255, 152, 0, 0.2); color: #FF9800; }
+        .gallery-btn .icon-box { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+        .status-btn .icon-box { background: rgba(233, 30, 99, 0.2); color: #E91E63; }
+        .more-btn .icon-box { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
     </style>
 </head>
 <body>
@@ -245,5 +261,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
