@@ -3,48 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suvichar Maker</title>
+    <title>Auto Suvichar Maker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         body { background-color: #121212; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 10px; }
         
-        /* Canvas Styling (Preview Area) */
+        /* Canvas Styling */
         canvas {
             width: 100%;
             max-width: 350px;
             border-radius: 10px;
             border: 2px solid #FF9800;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: #000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* Input Box */
-        textarea {
-            width: 90%;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            margin-bottom: 10px;
-            font-size: 16px;
+        /* --- AAPKA BUTTON STYLE --- */
+        .scroll-btn {
             background: #333;
-            color: white;
-            min-height: 60px;
-        }
-
-        /* Gallery Selector (Small scrollable strip) */
-        .scroll-gallery {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding: 10px;
+            color: #FF9800;
+            border: 1px solid #FF9800;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
             margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .scroll-btn:active { transform: scale(0.95); background: #444; }
+        
+        /* Gallery Styling */
+        .gallery-label { font-size: 14px; color: #ccc; margin-bottom: 5px; }
+        .scroll-gallery {
+            display: flex; overflow-x: auto; gap: 10px; padding: 10px;
+            margin-bottom: 20px; background: #1E1E1E; border-radius: 10px;
         }
         .scroll-gallery img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #333;
-            cursor: pointer;
+            width: 80px; height: 80px; object-fit: cover;
+            border-radius: 8px; border: 2px solid #333; cursor: pointer;
         }
         .scroll-gallery img:active { border-color: #FF9800; }
 
@@ -54,114 +55,148 @@
             color: white; border: none; padding: 15px 40px;
             border-radius: 50px; font-size: 18px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            cursor: pointer;
+            cursor: pointer; width: 80%;
         }
     </style>
 </head>
 <body>
 
-    <h2 style="color:#FF9800;">✨ Create Status ✨</h2>
+    <h2 style="color:#FF9800;">✨ Share Suvichar ✨</h2>
 
     <canvas id="myCanvas" width="1080" height="1080"></canvas>
 
-    <textarea id="quoteInput" placeholder="Likhiye apna Suvichar yaha..." oninput="draw()"></textarea>
+    <div>
+        <button class="scroll-btn refresh" onclick="getRandomQuote()">
+            <i class="fas fa-sync-alt"></i> नया सुविचार
+        </button>
+    </div>
 
-    <p style="font-size:12px; color:#aaa;">Select Background:</p>
+    <p class="gallery-label">Background Badlein:</p>
     
-    <div class="scroll-gallery" id="miniGallery">
-        </div>
+    <div class="scroll-gallery" id="miniGallery"></div>
 
     <button onclick="shareCanvas()" class="share-btn">🚀 Share on WhatsApp</button>
 
     <script>
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d');
-        const quoteInput = document.getElementById('quoteInput');
         
-        // Settings
+        // --- SETTINGS ---
         const totalImages = 50; 
-        const imagePath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
+        const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
+        const imagePath = rootPath + "images/";
+        const quotesFileUrl = rootPath + "quotes.json"; // JSON file location
+        
+        let allQuotes = ["Jai Shree Radhe Shyam"]; // Default quote fallback
+        let currentQuote = "";
         let currentBg = new Image();
         
-        // Start with first image
-        currentBg.src = imagePath + "bg1.webp";
-        currentBg.crossOrigin = "Anonymous"; // Important for editing
-        currentBg.onload = function() { draw(); }
+        // Start Process
+        init();
 
-        // --- DRAW FUNCTION (Combines Image + Text) ---
+        function init() {
+            // 1. Load First Image
+            currentBg.src = imagePath + "bg1.webp"; 
+            currentBg.crossOrigin = "Anonymous";
+
+            // 2. Fetch Quotes List from GitHub
+            fetch(quotesFileUrl + "?t=" + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    allQuotes = data; // Save all quotes
+                    getRandomQuote(); // Pick one immediately
+                })
+                .catch(err => {
+                    console.error("Quotes load error:", err);
+                    getRandomQuote();
+                });
+
+            currentBg.onload = function() { draw(); }
+        }
+
+        // --- RANDOM QUOTE LOGIC ---
+        function getRandomQuote() {
+            // Pick a random line from the list
+            const randomIndex = Math.floor(Math.random() * allQuotes.length);
+            currentQuote = allQuotes[randomIndex];
+            
+            // Redraw canvas with new text
+            if(currentBg.complete) draw();
+            
+            // Button animation (Optional: spin icon)
+            const icon = document.querySelector('.fa-sync-alt');
+            if(icon) {
+                icon.style.transition = "transform 0.5s";
+                icon.style.transform = "rotate(180deg)";
+                setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
+            }
+        }
+
+        // --- DRAW FUNCTION ---
         function draw() {
-            // 1. Draw Background
             ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
 
-            // 2. Add Dark Overlay (So text is visible)
-            ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+            // Dark Overlay
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 3. Text Settings
-            const text = quoteInput.value || "Jai Shree Radhe Shyam \n(Apna suvichar likhein)";
+            // Text Styles
             ctx.font = "bold 60px sans-serif";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.shadowColor = "black";
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 15;
 
-            // 4. Wrap Text Logic (Auto enter lines)
-            wrapText(ctx, text, canvas.width / 2, canvas.height / 2, 900, 80);
+            // Draw Text
+            wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 90);
             
-            // 5. Add Logo/Branding at bottom
+            // Branding
             ctx.font = "30px sans-serif";
             ctx.fillStyle = "#FF9800";
-            ctx.fillText("© Shree Radhe Shyam App", canvas.width / 2, canvas.height - 50);
+            ctx.fillText("© Shree Radhe Shyam", canvas.width / 2, canvas.height - 80);
         }
 
-        // --- Helper: Text Wrapping ---
+        // --- Text Wrapping Helper ---
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
-            var lines = text.split('\n');
+            var words = text.split(' ');
             var line = '';
+            // Adjust starting Y to center text block roughly
+            if(text.length > 50) y = y - (lineHeight * (text.length/50) / 2);
 
-            for (var i = 0; i < lines.length; i++) {
-                var words = lines[i].split(' ');
-                for (var n = 0; n < words.length; n++) {
-                    var testLine = line + words[n] + ' ';
-                    var metrics = context.measureText(testLine);
-                    var testWidth = metrics.width;
-                    if (testWidth > maxWidth && n > 0) {
-                        context.fillText(line, x, y);
-                        line = words[n] + ' ';
-                        y += lineHeight;
-                    } else {
-                        line = testLine;
-                    }
+            for (var i = 0; i < words.length; i++) {
+                var testLine = line + words[i] + ' ';
+                var metrics = context.measureText(testLine);
+                if (metrics.width > maxWidth && i > 0) {
+                    context.fillText(line, x, y);
+                    line = words[i] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
                 }
-                context.fillText(line, x, y);
-                line = '';
-                y += lineHeight;
             }
+            context.fillText(line, x, y);
         }
 
-        // --- Load Gallery Strip ---
+        // --- Gallery Loader ---
         const galleryDiv = document.getElementById('miniGallery');
         for(let i=1; i<=totalImages; i++){
             let img = document.createElement('img');
             img.src = imagePath + "bg" + i + ".webp";
             img.crossOrigin = "Anonymous";
             img.onclick = function() {
-                currentBg.src = this.src; // Change background
+                currentBg.src = this.src; 
                 currentBg.onload = function() { draw(); }
             };
             galleryDiv.appendChild(img);
         }
 
-        // --- SHARE FUNCTION ---
+        // --- Share Function ---
         function shareCanvas() {
-            // Convert Canvas to Base64 String
             var dataURL = canvas.toDataURL("image/png");
-            
-            // Send to Android Java
             if(typeof Android !== "undefined") {
                 Android.shareBase64Image(dataURL);
             } else {
-                alert("This feature works in the App!");
+                alert("Share feature works in App!");
             }
         }
     </script>
