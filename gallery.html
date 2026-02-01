@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radhe Shyam Wallpapers</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; margin: 0; padding: 10px; }
+        
+        /* Header */
+        header { 
+            text-align: center; padding: 15px; background: linear-gradient(to bottom, #FF9800, #121212); 
+            border-radius: 0 0 20px 20px; margin-bottom: 20px;
+        }
+        h1 { margin: 0; font-size: 24px; }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-block; margin-top: 10px; padding: 8px 16px;
+            background: rgba(0,0,0,0.5); color: #fff; text-decoration: none;
+            border-radius: 20px; font-size: 14px;
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .image-card img {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 10px;
+            border: 1px solid #333;
+        }
+        
+        /* Full Screen Overlay */
+        .fullscreen-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 1000;
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+        .fullscreen-overlay img { max-width: 95%; max-height: 80%; border-radius: 8px; }
+        .instructions { margin-top: 15px; color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Wallpaper Gallery</h1>
+        <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    </header>
+
+    <div class="gallery-container" id="gallery"></div>
+
+    <div class="fullscreen-overlay" id="overlay" onclick="closeFullscreen()">
+        <img id="fullImage" src="" alt="Full Screen">
+        <div class="instructions">Long Press image to Download<br><br>Tap anywhere to Close</div>
+    </div>
+
+    <script>
+        const totalImages = 50; 
+        const folderPath = "images/"; // Make sure you upload your images folder to GitHub!
+
+        const gallery = document.getElementById('gallery');
+        const overlay = document.getElementById('overlay');
+        const fullImage = document.getElementById('fullImage');
+
+        for (let i = 1; i <= totalImages; i++) {
+            let imageName = "bg" + i + ".webp"; // Assuming .webp extension
+            
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            card.innerHTML = `<img src="${folderPath}${imageName}" loading="lazy" onclick="openFullscreen('${folderPath}${imageName}')">`;
+            gallery.appendChild(card);
+        }
+
+        function openFullscreen(src) {
+            fullImage.src = src;
+            overlay.style.display = 'flex';
+        }
+        function closeFullscreen() {
+            overlay.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
