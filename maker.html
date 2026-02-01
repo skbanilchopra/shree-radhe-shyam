@@ -9,63 +9,17 @@
     
     <style>
         body { background-color: #121212; color: white; font-family: 'Poppins', sans-serif; text-align: center; margin: 0; padding: 10px; }
-        
-        /* Canvas Styling */
-        canvas {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 10px;
-            border: 2px solid #FF9800;
-            margin-bottom: 15px;
-            background: #000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        /* Refresh Button Style */
-        .scroll-btn {
-            background: #333;
-            color: #FF9800;
-            border: 1px solid #FF9800;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-            font-family: 'Poppins', sans-serif;
-        }
-        .scroll-btn:active { transform: scale(0.95); background: #444; }
-        
-        /* Gallery Styling */
+        canvas { width: 100%; max-width: 350px; border-radius: 10px; border: 2px solid #FF9800; margin-bottom: 15px; background: #000; }
+        .scroll-btn { background: #333; color: #FF9800; border: 1px solid #FF9800; padding: 10px 20px; border-radius: 25px; font-size: 16px; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; }
         .gallery-label { font-size: 14px; color: #ccc; margin-bottom: 5px; }
-        .scroll-gallery {
-            display: flex; overflow-x: auto; gap: 10px; padding: 10px;
-            margin-bottom: 20px; background: #1E1E1E; border-radius: 10px;
-        }
-        .scroll-gallery img {
-            width: 80px; height: 80px; object-fit: cover;
-            border-radius: 8px; border: 2px solid #333; cursor: pointer;
-        }
-        .scroll-gallery img:active { border-color: #FF9800; }
-
-        /* Share Button */
-        .share-btn {
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            color: white; border: none; padding: 15px 40px;
-            border-radius: 50px; font-size: 18px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            cursor: pointer; width: 80%;
-            font-family: 'Poppins', sans-serif;
-        }
+        .scroll-gallery { display: flex; overflow-x: auto; gap: 10px; padding: 10px; margin-bottom: 20px; background: #1E1E1E; border-radius: 10px; }
+        .scroll-gallery img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #333; cursor: pointer; }
+        .share-btn { background: linear-gradient(45deg, #25D366, #128C7E); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; width: 80%; }
     </style>
 </head>
 <body>
 
     <h2 style="color:#FF9800;">✨ Share Suvichar ✨</h2>
-
     <canvas id="myCanvas" width="1080" height="1080"></canvas>
 
     <div>
@@ -75,55 +29,63 @@
     </div>
 
     <p class="gallery-label">Background Badlein:</p>
-    
     <div class="scroll-gallery" id="miniGallery"></div>
-
     <button onclick="shareCanvas()" class="share-btn">🚀 Share on WhatsApp</button>
 
     <script>
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d');
         
-        // --- SETTINGS ---
-        const totalImages = 50; 
+        // --- CHECK THESE LINKS CAREFULLY ---
         const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
         const imagePath = rootPath + "images/";
         const quotesFileUrl = rootPath + "quotes.json"; 
         
         let allQuotes = ["Jai Shree Radhe Shyam"]; 
-        let currentQuote = "";
+        let currentQuote = "Loading...";
         let currentBg = new Image();
         
         // Start Process
         init();
 
         function init() {
-            // 1. Load First Image
+            // 1. IMAGE DEBUGGING
             currentBg.src = imagePath + "bg1.webp"; 
             currentBg.crossOrigin = "Anonymous";
+            
+            // Agar image nahi mili, to ye ALERT aayega
+            currentBg.onerror = function() {
+                alert("❌ ERROR: Image nahi mili!\nCheck karein ki GitHub par 'images' folder mein 'bg1.webp' hai ya nahi.\nLink: " + currentBg.src);
+            }
+            
+            currentBg.onload = function() { draw(); }
 
-            // 2. Fetch Quotes List from GitHub
+            // 2. QUOTES DEBUGGING
             fetch(quotesFileUrl + "?t=" + new Date().getTime())
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("File 404 Not Found");
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     allQuotes = data; 
                     getRandomQuote(); 
                 })
                 .catch(err => {
-                    console.error("Quotes load error:", err);
-                    getRandomQuote();
+                    // Agar JSON file mein galti hai, to ye ALERT aayega
+                    alert("❌ ERROR: Quotes File mein galti hai!\nDetails: " + err.message + "\n\nShayad Last line mein comma (,) reh gaya hai?");
+                    currentQuote = "Error loading quotes.";
+                    if(currentBg.complete) draw();
                 });
-
-            currentBg.onload = function() { draw(); }
         }
 
-        // --- RANDOM QUOTE LOGIC ---
         function getRandomQuote() {
-            const randomIndex = Math.floor(Math.random() * allQuotes.length);
-            currentQuote = allQuotes[randomIndex];
-            
-            if(currentBg.complete) draw();
-            
+            if(allQuotes.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allQuotes.length);
+                currentQuote = allQuotes[randomIndex];
+                if(currentBg.complete) draw();
+            }
             // Icon Animation
             const icon = document.querySelector('.fa-sync-alt');
             if(icon) {
@@ -133,38 +95,27 @@
             }
         }
 
-        // --- DRAW FUNCTION ---
         function draw() {
             ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
-
-            // Dark Overlay
             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // --- FIXED FONT LINE BELOW (Supports Hindi & English) ---
-            ctx.font = "bold 60px 'Poppins', sans-serif";
-            // ------------------------------------------------------
             
+            ctx.font = "bold 60px 'Poppins', sans-serif";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.shadowColor = "black";
             ctx.shadowBlur = 15;
 
-            // Draw Text
             wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 90);
             
-            // Branding
             ctx.font = "30px 'Poppins', sans-serif";
             ctx.fillStyle = "#FF9800";
             ctx.fillText("© Shree Radhe Shyam", canvas.width / 2, canvas.height - 80);
         }
 
-        // --- Text Wrapping Helper ---
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             var words = text.split(' ');
             var line = '';
-            
-            // Adjust starting Y based on length
             if(text.length > 50) y = y - (lineHeight * (text.length/50) / 2);
 
             for (var i = 0; i < words.length; i++) {
@@ -181,9 +132,9 @@
             context.fillText(line, x, y);
         }
 
-        // --- Gallery Loader ---
+        // Load Gallery
         const galleryDiv = document.getElementById('miniGallery');
-        for(let i=1; i<=totalImages; i++){
+        for(let i=1; i<=50; i++){
             let img = document.createElement('img');
             img.src = imagePath + "bg" + i + ".webp";
             img.crossOrigin = "Anonymous";
@@ -194,7 +145,6 @@
             galleryDiv.appendChild(img);
         }
 
-        // --- Share Function ---
         function shareCanvas() {
             var dataURL = canvas.toDataURL("image/png");
             if(typeof Android !== "undefined") {
