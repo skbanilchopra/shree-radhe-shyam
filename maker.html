@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suvichar Maker</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 10px; }
+        
+        /* Canvas Styling (Preview Area) */
+        canvas {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            border: 2px solid #FF9800;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        /* Input Box */
+        textarea {
+            width: 90%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+            background: #333;
+            color: white;
+            min-height: 60px;
+        }
+
+        /* Gallery Selector (Small scrollable strip) */
+        .scroll-gallery {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .scroll-gallery img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+        .scroll-gallery img:active { border-color: #FF9800; }
+
+        /* Share Button */
+        .share-btn {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white; border: none; padding: 15px 40px;
+            border-radius: 50px; font-size: 18px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="color:#FF9800;">✨ Create Status ✨</h2>
+
+    <canvas id="myCanvas" width="1080" height="1080"></canvas>
+
+    <textarea id="quoteInput" placeholder="Likhiye apna Suvichar yaha..." oninput="draw()"></textarea>
+
+    <p style="font-size:12px; color:#aaa;">Select Background:</p>
+    
+    <div class="scroll-gallery" id="miniGallery">
+        </div>
+
+    <button onclick="shareCanvas()" class="share-btn">🚀 Share on WhatsApp</button>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const quoteInput = document.getElementById('quoteInput');
+        
+        // Settings
+        const totalImages = 50; 
+        const imagePath = "https://skbanilchopra.github.io/shree-radhe-shyam/images/";
+        let currentBg = new Image();
+        
+        // Start with first image
+        currentBg.src = imagePath + "bg1.webp";
+        currentBg.crossOrigin = "Anonymous"; // Important for editing
+        currentBg.onload = function() { draw(); }
+
+        // --- DRAW FUNCTION (Combines Image + Text) ---
+        function draw() {
+            // 1. Draw Background
+            ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
+
+            // 2. Add Dark Overlay (So text is visible)
+            ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 3. Text Settings
+            const text = quoteInput.value || "Jai Shree Radhe Shyam \n(Apna suvichar likhein)";
+            ctx.font = "bold 60px sans-serif";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.shadowColor = "black";
+            ctx.shadowBlur = 10;
+
+            // 4. Wrap Text Logic (Auto enter lines)
+            wrapText(ctx, text, canvas.width / 2, canvas.height / 2, 900, 80);
+            
+            // 5. Add Logo/Branding at bottom
+            ctx.font = "30px sans-serif";
+            ctx.fillStyle = "#FF9800";
+            ctx.fillText("© Shree Radhe Shyam App", canvas.width / 2, canvas.height - 50);
+        }
+
+        // --- Helper: Text Wrapping ---
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            var lines = text.split('\n');
+            var line = '';
+
+            for (var i = 0; i < lines.length; i++) {
+                var words = lines[i].split(' ');
+                for (var n = 0; n < words.length; n++) {
+                    var testLine = line + words[n] + ' ';
+                    var metrics = context.measureText(testLine);
+                    var testWidth = metrics.width;
+                    if (testWidth > maxWidth && n > 0) {
+                        context.fillText(line, x, y);
+                        line = words[n] + ' ';
+                        y += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                context.fillText(line, x, y);
+                line = '';
+                y += lineHeight;
+            }
+        }
+
+        // --- Load Gallery Strip ---
+        const galleryDiv = document.getElementById('miniGallery');
+        for(let i=1; i<=totalImages; i++){
+            let img = document.createElement('img');
+            img.src = imagePath + "bg" + i + ".webp";
+            img.crossOrigin = "Anonymous";
+            img.onclick = function() {
+                currentBg.src = this.src; // Change background
+                currentBg.onload = function() { draw(); }
+            };
+            galleryDiv.appendChild(img);
+        }
+
+        // --- SHARE FUNCTION ---
+        function shareCanvas() {
+            // Convert Canvas to Base64 String
+            var dataURL = canvas.toDataURL("image/png");
+            
+            // Send to Android Java
+            if(typeof Android !== "undefined") {
+                Android.shareBase64Image(dataURL);
+            } else {
+                alert("This feature works in the App!");
+            }
+        }
+    </script>
+</body>
+</html>
