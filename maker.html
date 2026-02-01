@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Suvichar Maker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     
     <style>
-        body { background-color: #121212; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 10px; }
+        body { background-color: #121212; color: white; font-family: 'Poppins', sans-serif; text-align: center; margin: 0; padding: 10px; }
         
         /* Canvas Styling */
         canvas {
@@ -20,7 +21,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* --- AAPKA BUTTON STYLE --- */
+        /* Refresh Button Style */
         .scroll-btn {
             background: #333;
             color: #FF9800;
@@ -34,6 +35,7 @@
             align-items: center;
             gap: 8px;
             transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
         .scroll-btn:active { transform: scale(0.95); background: #444; }
         
@@ -56,6 +58,7 @@
             border-radius: 50px; font-size: 18px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             cursor: pointer; width: 80%;
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
@@ -85,9 +88,9 @@
         const totalImages = 50; 
         const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
         const imagePath = rootPath + "images/";
-        const quotesFileUrl = rootPath + "quotes.json"; // JSON file location
+        const quotesFileUrl = rootPath + "quotes.json"; 
         
-        let allQuotes = ["Jai Shree Radhe Shyam"]; // Default quote fallback
+        let allQuotes = ["Jai Shree Radhe Shyam"]; 
         let currentQuote = "";
         let currentBg = new Image();
         
@@ -103,8 +106,8 @@
             fetch(quotesFileUrl + "?t=" + new Date().getTime())
                 .then(response => response.json())
                 .then(data => {
-                    allQuotes = data; // Save all quotes
-                    getRandomQuote(); // Pick one immediately
+                    allQuotes = data; 
+                    getRandomQuote(); 
                 })
                 .catch(err => {
                     console.error("Quotes load error:", err);
@@ -116,14 +119,12 @@
 
         // --- RANDOM QUOTE LOGIC ---
         function getRandomQuote() {
-            // Pick a random line from the list
             const randomIndex = Math.floor(Math.random() * allQuotes.length);
             currentQuote = allQuotes[randomIndex];
             
-            // Redraw canvas with new text
             if(currentBg.complete) draw();
             
-            // Button animation (Optional: spin icon)
+            // Icon Animation
             const icon = document.querySelector('.fa-sync-alt');
             if(icon) {
                 icon.style.transition = "transform 0.5s";
@@ -140,8 +141,10 @@
             ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Text Styles
-            ctx.font = "bold 60px sans-serif";
+            // --- FIXED FONT LINE BELOW (Supports Hindi & English) ---
+            ctx.font = "bold 60px 'Poppins', sans-serif";
+            // ------------------------------------------------------
+            
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.shadowColor = "black";
@@ -151,7 +154,7 @@
             wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 90);
             
             // Branding
-            ctx.font = "30px sans-serif";
+            ctx.font = "30px 'Poppins', sans-serif";
             ctx.fillStyle = "#FF9800";
             ctx.fillText("© Shree Radhe Shyam", canvas.width / 2, canvas.height - 80);
         }
@@ -160,7 +163,8 @@
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             var words = text.split(' ');
             var line = '';
-            // Adjust starting Y to center text block roughly
+            
+            // Adjust starting Y based on length
             if(text.length > 50) y = y - (lineHeight * (text.length/50) / 2);
 
             for (var i = 0; i < words.length; i++) {
