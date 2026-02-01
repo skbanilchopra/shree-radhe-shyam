@@ -56,14 +56,17 @@
 
     <script>
         const totalImages = 50; 
-        const folderPath = "/blob/images/"; // Make sure you upload your images folder to GitHub!
+        
+        // --- FIXED LINE BELOW ---
+        const folderPath = "images/"; 
+        // ------------------------
 
         const gallery = document.getElementById('gallery');
         const overlay = document.getElementById('overlay');
         const fullImage = document.getElementById('fullImage');
 
         for (let i = 1; i <= totalImages; i++) {
-            let imageName = "bg" + i + ".webp"; // Assuming .webp extension
+            let imageName = "bg" + i + ".webp"; 
             
             const card = document.createElement('div');
             card.className = 'image-card';
