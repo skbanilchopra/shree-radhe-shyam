@@ -345,12 +345,24 @@ header.channel-header {
     text-overflow: ellipsis;
 }
 
+/* इसे style.css में अपडेट करें */
 .yt-button-container {
-    width: 100%;
     display: flex;
     justify-content: center;
-    min-height: 40px;
+    align-items: center;
+    width: 100%;
+    height: 35px; /* बटन की ऊंचाई फिक्स करें */
     overflow: hidden;
+    margin-top: 5px;
+}
+
+/* मोबाइल के लिए छोटे फोंट */
+@media (max-width: 480px) {
+    .ch-details h3 {
+        font-size: 0.75rem;
+        white-space: normal; /* नाम दो लाइन में आने दें */
+        line-height: 1.2;
+    }
 }
 
 .sub-btn { display: none !important; }
@@ -386,4 +398,5 @@ header.channel-header {
     font-weight: bold;
     color: #FFFDE7;
 }
+
 
