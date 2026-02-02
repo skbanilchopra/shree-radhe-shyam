@@ -13,7 +13,57 @@
             background: linear-gradient(135deg, #1a0b00 0%, #000000 100%); 
             color: white; font-family: 'Poppins', sans-serif; 
             text-align: center; margin: 0; padding: 15px; min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
+
+        /* --- SPLASH SCREEN CSS --- */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%); /* Deep Blue Theme */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out, visibility 1s;
+        }
+        
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-content h1 {
+            font-family: 'Rozha One', serif;
+            font-size: 3rem;
+            color: #FFD700; /* Gold */
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .splash-content p {
+            font-family: 'Tiro Hindi', serif;
+            font-size: 1.2rem;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .loader {
+            margin-top: 30px;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #FFD700;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        /* ------------------------- */
+
         h2 {
             font-family: 'Rozha One', serif; color: #FF9800;
             margin: 5px 0 15px 0; text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
@@ -94,6 +144,13 @@
 
 <body>
 
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1>Jay Shree Radhe</h1>
+            <p>Creating Magic...</p>
+            <div class="loader"></div>
+        </div>
+    </div>
     <h2>✨ Suvichar Maker ✨</h2>
 
     <div class="canvas-container">
@@ -137,6 +194,17 @@
     </div>
 
 <script>
+// --- SPLASH SCREEN LOGIC ---
+window.onload = function() {
+    setTimeout(function() {
+        const splash = document.getElementById('splash-screen');
+        splash.classList.add('hidden');
+        // Splash hatne ke baad hi main init call karein taaki transition smooth ho
+        init();
+    }, 2500); // 2.5 seconds
+};
+// ---------------------------
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -153,7 +221,7 @@ let currentFont = "'Poppins', sans-serif";
 let currentColor = "#FFFFFF";
 let currentSize = 60;
 
-init();
+// Note: init() ab window.onload ke andar splash ke baad call hoga
 
 function init() {
     currentBg.src = imagePath + "bg1.webp";
@@ -235,7 +303,6 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     let line = '';
 
     // Adjust Y position based on text length to center it
-    // Approximate centering adjustment
     let estimatedLines = Math.ceil((context.measureText(text).width) / maxWidth); 
     if(estimatedLines < 1) estimatedLines = 1;
     y -= (lineHeight * estimatedLines) / 2;
