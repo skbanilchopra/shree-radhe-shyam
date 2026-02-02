@@ -6,7 +6,7 @@
     <title>Premium Suvichar Maker</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Rozha+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Rozha+One&family=Tiro+Hindi:ital@0;1&family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
         body { 
@@ -24,18 +24,33 @@
             box-shadow: 0 0 25px rgba(255, 152, 0, 0.4); margin-bottom: 20px;
         }
         canvas { display: block; width: 100%; max-width: 350px; border-radius: 12px; background: #000; }
+        
         .controls {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
-            padding: 15px; margin-top: 10px;
+            padding: 15px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto;
         }
+        
+        /* New Style Controls */
+        .style-controls {
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;
+        }
+        select, input[type="color"] {
+            background: rgba(0,0,0,0.5); border: 1px solid #FFD700;
+            color: white; padding: 8px; border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        select { flex-grow: 1; }
+        input[type="color"] { width: 50px; height: 40px; padding: 0; cursor: pointer; }
+
         .scroll-btn {
             background: transparent; color: #FFD700; border: 2px solid #FFD700;
             padding: 10px 25px; border-radius: 50px; font-size: 16px;
             font-weight: bold; cursor: pointer; display: inline-flex;
-            align-items: center; gap: 10px; transition: 0.3s;
+            align-items: center; gap: 10px; transition: 0.3s; margin-bottom: 10px;
         }
         .scroll-btn:active { transform: scale(0.95); background: rgba(255, 215, 0, 0.1); }
+        
         .gallery-label { font-size: 13px; color: #aaa; margin: 15px 0 5px 0; text-transform: uppercase; letter-spacing: 1px;}
         .scroll-gallery { display: flex; overflow-x: auto; gap: 12px; padding: 5px; margin-bottom: 20px; }
         .scroll-gallery img {
@@ -43,13 +58,24 @@
             border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s;
         }
         .scroll-gallery img:active { border-color: #FFD700; }
-        .share-btn {
-            background: linear-gradient(45deg, #25D366, #128C7E);
+        
+        .action-buttons { display: flex; gap: 10px; flex-direction: column; }
+        
+        .share-btn, .download-btn {
             color: white; border: none; padding: 16px 0; border-radius: 50px;
             font-size: 18px; font-weight: bold; width: 100%;
             font-family: 'Poppins', sans-serif; text-transform: uppercase;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .share-btn {
+            background: linear-gradient(45deg, #25D366, #128C7E);
             box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); animation: pulse 2s infinite;
         }
+        .download-btn {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+        }
+
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
@@ -67,6 +93,17 @@
     </div>
 
     <div class="controls">
+        
+        <div class="style-controls">
+            <select id="fontSelect" onchange="updateStyle()">
+                <option value="'Poppins', sans-serif">Poppins (Simple)</option>
+                <option value="'Rozha One', serif">Rozha One (Bold)</option>
+                <option value="'Tiro Hindi', serif">Tiro Hindi (Classic)</option>
+                <option value="'Baloo 2', cursive">Baloo 2 (Modern)</option>
+            </select>
+            <input type="color" id="colorPicker" value="#FFFFFF" onchange="updateStyle()">
+        </div>
+
         <button class="scroll-btn refresh" onclick="getRandomQuote()">
             <i class="fas fa-sync-alt"></i> नया सुविचार
         </button>
@@ -74,13 +111,19 @@
         <p class="gallery-label">पृष्ठभूमि बदलें (Change Background)</p>
         <div class="scroll-gallery" id="miniGallery"></div>
 
-        <button onclick="shareCanvas()" class="share-btn">
-            <i class="fab fa-whatsapp"></i> Share on WhatsApp
-        </button>
+        <div class="action-buttons">
+            <button onclick="downloadCanvas()" class="download-btn">
+                <i class="fas fa-download"></i> Save Image
+            </button>
+
+            <button onclick="shareCanvas()" class="share-btn">
+                <i class="fab fa-whatsapp"></i> Share on WhatsApp
+            </button>
+        </div>
     </div>
 
 <script>
-    const canvas = document.getElementById('myCanvas');
+const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
 const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
@@ -91,6 +134,10 @@ let allQuotes = ["Jai Shree Radhe Shyam"];
 let currentQuote = "Loading...";
 let currentBg = new Image();
 
+// New State Variables
+let currentFont = "'Poppins', sans-serif";
+let currentColor = "#FFFFFF";
+
 init();
 
 function init() {
@@ -100,7 +147,7 @@ function init() {
     fetch(quotesFileUrl + "?t=" + new Date().getTime())
         .then(r => r.json())
         .then(data => { 
-            allQuotes = data.quotes;   // ⭐ FIXED LINE ⭐
+            allQuotes = data.quotes; 
             getRandomQuote(); 
         })
         .catch(e => {
@@ -126,6 +173,13 @@ function getRandomQuote() {
     }
 }
 
+// New Function to handle style changes
+function updateStyle() {
+    currentFont = document.getElementById('fontSelect').value;
+    currentColor = document.getElementById('colorPicker').value;
+    draw();
+}
+
 function draw() {
     ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
 
@@ -135,8 +189,10 @@ function draw() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.font = "bold 60px 'Poppins', sans-serif";
-    ctx.fillStyle = "#FFFFFF";
+    // Using Dynamic Font and Color
+    ctx.font = "bold 60px " + currentFont;
+    ctx.fillStyle = currentColor;
+    
     ctx.textAlign = "center";
     ctx.shadowColor = "rgba(0,0,0,0.8)";
     ctx.shadowBlur = 20;
@@ -186,6 +242,14 @@ for (let i = 1; i <= 50; i++) {
     galleryDiv.appendChild(img);
 }
 
+// New Function: Download Image (Web Fallback)
+function downloadCanvas() {
+    var link = document.createElement('a');
+    link.download = 'suvichar_shree_radhe_shyam.png';
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+
 function shareCanvas() {
     var dataURL = canvas.toDataURL("image/png");
 
@@ -194,13 +258,13 @@ function shareCanvas() {
         return;
     }
 
-    alert("Ye feature sirf APP me available hai.");
-
-    var ask = confirm("Kya aap app download karna chahte hain?");
+    // Fallback if not in App
+    alert("Share feature App me best chalta hai. Image download ho rahi hai...");
+    downloadCanvas();
+    
+    var ask = confirm("Kya aap App download karna chahte hain?");
     if (ask) {
         window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
-    } else {
-        alert("Theek hai! Aap baad me download kar sakte hain.");
     }
 }
 
