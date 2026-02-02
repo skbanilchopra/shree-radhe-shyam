@@ -301,4 +301,56 @@ select.aarti-dropdown {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+/* --- YouTube Automatic Button Custom Styling --- */
+
+/* Card ko thoda adjust karein taki button fit ho jaye */
+.channel-card {
+    min-height: 140px; /* Ek jaisi height ke liye */
+    justify-content: space-between;
+    padding: 15px 5px !important;
+}
+
+/* YouTube Button ko center karne ke liye container */
+.yt-button-container {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: scale(0.9); /* Mobile par thoda chhota dikhane ke liye */
+}
+
+/* Purane .sub-btn ko hide ya delete kar sakte hain agar 
+   aap sirf automatic button use kar rahe hain */
+.sub-btn {
+    display: none; 
+}
+
+/* Responsive check for larger screens */
+@media (min-width: 768px) {
+    .yt-button-container {
+        transform: scale(1); /* Desktop par normal size */
+    }
+}
+/* YouTube Button ko card mein fit karne ke liye */
+.yt-button-container {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* Mobile par button ko thoda chhota rakhein taki card se bahar na nikle */
+    transform: scale(0.85); 
+    height: 35px; /* Button ke liye fix jagah */
+}
+
+/* Purane subscribe button ko hide karne ke liye (Optional) */
+.sub-btn {
+    display: none !important;
+}
+
+/* Desktop layout ke liye thoda adjust */
+@media (min-width: 768px) {
+    .yt-button-container {
+        transform: scale(1);
+    }
+}
 
