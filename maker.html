@@ -81,130 +81,128 @@
 
 <script>
     const canvas = document.getElementById('myCanvas');
-    const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 
-    const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
-    const imagePath = rootPath;
-    const quotesFileUrl = rootPath + "quotes.json";
+const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
+const imagePath = rootPath;
+const quotesFileUrl = rootPath + "quotes.json";
 
-    let allQuotes = ["Jai Shree Radhe Shyam"];
-    let currentQuote = "Loading...";
-    let currentBg = new Image();
+let allQuotes = ["Jai Shree Radhe Shyam"];
+let currentQuote = "Loading...";
+let currentBg = new Image();
 
-    init();
+init();
 
-    function init() {
-        currentBg.src = imagePath + "bg1.webp";
-        currentBg.crossOrigin = "Anonymous";
+function init() {
+    currentBg.src = imagePath + "bg1.webp";
+    currentBg.crossOrigin = "Anonymous";
 
-        fetch(quotesFileUrl + "?t=" + new Date().getTime())
-            .then(r => r.json())
-            .then(data => { 
-                allQuotes = data.quotes;   // FIXED ✔
-                getRandomQuote(); 
-            })
-            .catch(e => {
-                currentQuote = "Jai Shree Radhe Shyam";
-                if (currentBg.complete) draw();
-            });
-
-        currentBg.onload = function () { draw(); }
-    }
-
-    function getRandomQuote() {
-        if (allQuotes.length > 0) {
-            const randomIndex = Math.floor(Math.random() * allQuotes.length);
-            currentQuote = allQuotes[randomIndex].text || allQuotes[randomIndex];
+    fetch(quotesFileUrl + "?t=" + new Date().getTime())
+        .then(r => r.json())
+        .then(data => { 
+            allQuotes = data.quotes;   // ⭐ FIXED LINE ⭐
+            getRandomQuote(); 
+        })
+        .catch(e => {
+            currentQuote = "Jai Shree Radhe Shyam";
             if (currentBg.complete) draw();
-        }
+        });
 
-        const icon = document.querySelector('.fa-sync-alt');
-        if (icon) {
-            icon.style.transition = "transform 0.5s";
-            icon.style.transform = "rotate(180deg)";
-            setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
-        }
+    currentBg.onload = function () { draw(); }
+}
+
+function getRandomQuote() {
+    if (allQuotes.length > 0) {
+        const randomIndex = Math.floor(Math.random() * allQuotes.length);
+        currentQuote = allQuotes[randomIndex].text;
+        if (currentBg.complete) draw();
     }
 
-    function draw() {
-        ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
-
-        let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, "rgba(0,0,0,0.3)");
-        gradient.addColorStop(1, "rgba(0,0,0,0.7)");
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.font = "bold 60px 'Poppins', sans-serif";
-        ctx.fillStyle = "#FFFFFF";
-        ctx.textAlign = "center";
-        ctx.shadowColor = "rgba(0,0,0,0.8)";
-        ctx.shadowBlur = 20;
-        ctx.shadowOffsetX = 4;
-        ctx.shadowOffsetY = 4;
-
-        wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
-
-        ctx.shadowBlur = 0;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.fillStyle = "rgba(255, 152, 0, 0.9)";
-        ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
-
-        ctx.font = "bold 35px 'Poppins', sans-serif";
-        ctx.fillStyle = "black";
-        ctx.fillText("✨ Shree Radhe Shyam App ✨", canvas.width / 2, canvas.height - 35);
+    const icon = document.querySelector('.fa-sync-alt');
+    if (icon) {
+        icon.style.transition = "transform 0.5s";
+        icon.style.transform = "rotate(180deg)";
+        setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
     }
+}
 
-    function wrapText(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
+function draw() {
+    ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
 
-        if (text.length > 50) y = y - (lineHeight * (text.length / 40) / 2);
+    let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, "rgba(0,0,0,0.3)");
+    gradient.addColorStop(1, "rgba(0,0,0,0.7)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        for (var i = 0; i < words.length; i++) {
-            var testLine = line + words[i] + ' ';
-            var metrics = context.measureText(testLine);
-            if (metrics.width > maxWidth && i > 0) {
-                context.fillText(line, x, y);
-                line = words[i] + ' ';
-                y += lineHeight;
-            } else {
-                line = testLine;
-            }
-        }
-        context.fillText(line, x, y);
-    }
+    ctx.font = "bold 60px 'Poppins', sans-serif";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.shadowColor = "rgba(0,0,0,0.8)";
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 4;
+    ctx.shadowOffsetY = 4;
 
-    const galleryDiv = document.getElementById('miniGallery');
-    for (let i = 1; i <= 50; i++) {
-        let img = document.createElement('img');
-        img.src = imagePath + "bg" + i + ".webp";
-        img.crossOrigin = "Anonymous";
-        img.onclick = function () {
-            currentBg.src = this.src;
-            currentBg.onload = function () { draw(); }
-        };
-        galleryDiv.appendChild(img);
-    }
+    wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
 
-    function shareCanvas() {
-        var dataURL = canvas.toDataURL("image/png");
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "rgba(255, 152, 0, 0.9)";
+    ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
 
-        if (typeof Android !== "undefined") {
-            Android.shareBase64Image(dataURL);
-            return;
-        }
+    ctx.font = "bold 35px 'Poppins', sans-serif";
+    ctx.fillStyle = "black";
+    ctx.fillText("✨ Shree Radhe Shyam App ✨", canvas.width / 2, canvas.height - 35);
+}
 
-        alert("Ye feature sirf APP me available hai.");
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    let words = text.split(' ');
+    let line = '';
 
-        var ask = confirm("Kya aap app download karna chahte hain?");
-        if (ask) {
-            window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
+    if (text.length > 50) y -= (lineHeight * (text.length / 40) / 2);
+
+    for (let i = 0; i < words.length; i++) {
+        let testLine = line + words[i] + ' ';
+        let metrics = context.measureText(testLine);
+        if (metrics.width > maxWidth && i > 0) {
+            context.fillText(line, x, y);
+            line = words[i] + ' ';
+            y += lineHeight;
         } else {
-            alert("Theek hai! Aap baad me download kar sakte hain.");
+            line = testLine;
         }
     }
+    context.fillText(line, x, y);
+}
+
+const galleryDiv = document.getElementById('miniGallery');
+for (let i = 1; i <= 50; i++) {
+    let img = document.createElement('img');
+    img.src = imagePath + "bg" + i + ".webp";
+    img.crossOrigin = "Anonymous";
+    img.onclick = function () {
+        currentBg.src = this.src;
+        currentBg.onload = draw;
+    };
+    galleryDiv.appendChild(img);
+}
+
+function shareCanvas() {
+    var dataURL = canvas.toDataURL("image/png");
+
+    if (typeof Android !== "undefined") {
+        Android.shareBase64Image(dataURL);
+        return;
+    }
+
+    alert("Ye feature sirf APP me available hai.");
+
+    var ask = confirm("Kya aap app download karna chahte hain?");
+    if (ask) {
+        window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
+    } else {
+        alert("Theek hai! Aap baad me download kar sakte hain.");
+    }
+}
 
 </script>
 
