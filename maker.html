@@ -151,10 +151,27 @@
             galleryDiv.appendChild(img);
         }
         function shareCanvas() {
-            var dataURL = canvas.toDataURL("image/png");
-            if(typeof Android !== "undefined") { Android.shareBase64Image(dataURL); } 
-            else { alert("Share feature works in App!"); }
-        }
+    var dataURL = canvas.toDataURL("image/png");
+
+    // अगर App में हो → Direct Share
+    if (typeof Android !== "undefined") { 
+        Android.shareBase64Image(dataURL);
+        return;
+    }
+
+    // Step-1 : Normal Website पर पहला Alert
+    alert("Ye feature sirf APP me available hai.");
+
+    // Step-2 : App Download Confirm
+    var ask = confirm("Kya aap app download karna chahte hain?");
+
+    // Step-3 : User ne Yes bola → App APK download link
+    if (ask) {
+        window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
+    } else {
+        alert("Theek hai! Aap baad me download kar sakte hain.");
+    }
+}
     </script>
 </body>
 </html>
