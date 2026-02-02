@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Suvichar Maker</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Rozha+One&display=swap" rel="stylesheet">
-    
+
     <style>
         body { 
             background: linear-gradient(135deg, #1a0b00 0%, #000000 100%); 
@@ -56,122 +57,156 @@
         }
     </style>
 </head>
+
 <body>
+
     <h2>✨ Suvichar Maker ✨</h2>
+
     <div class="canvas-container">
         <canvas id="myCanvas" width="1080" height="1080"></canvas>
     </div>
+
     <div class="controls">
         <button class="scroll-btn refresh" onclick="getRandomQuote()">
             <i class="fas fa-sync-alt"></i> नया सुविचार
         </button>
+
         <p class="gallery-label">पृष्ठभूमि बदलें (Change Background)</p>
         <div class="scroll-gallery" id="miniGallery"></div>
+
         <button onclick="shareCanvas()" class="share-btn">
             <i class="fab fa-whatsapp"></i> Share on WhatsApp
         </button>
     </div>
-    <script>
-        const canvas = document.getElementById('myCanvas');
-        const ctx = canvas.getContext('2d');
-        const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
-        const imagePath = rootPath ;
-        const quotesFileUrl = rootPath + "quotes.json"; 
-        
-        let allQuotes = ["Jai Shree Radhe Shyam"]; 
-        let currentQuote = "Loading...";
-        let currentBg = new Image();
-        
-        init();
-        function init() {
-            currentBg.src = imagePath + "bg1.webp"; 
-            currentBg.crossOrigin = "Anonymous";
-            fetch(quotesFileUrl + "?t=" + new Date().getTime())
-                .then(r => r.json())
-                .then(data => { allQuotes = data; getRandomQuote(); })
-                .catch(e => { currentQuote = "Jai Shree Radhe Shyam"; if(currentBg.complete) draw(); });
-            currentBg.onload = function() { draw(); }
-        }
-        function getRandomQuote() {
-            if(allQuotes.length > 0) {
-                const randomIndex = Math.floor(Math.random() * allQuotes.length);
-                currentQuote = allQuotes[randomIndex];
-                if(currentBg.complete) draw();
-            }
-            const icon = document.querySelector('.fa-sync-alt');
-            if(icon) {
-                icon.style.transition = "transform 0.5s";
-                icon.style.transform = "rotate(180deg)";
-                setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
-            }
-        }
-        function draw() {
-            ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
-            let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, "rgba(0,0,0,0.3)");
-            gradient.addColorStop(1, "rgba(0,0,0,0.7)");
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.font = "bold 60px 'Poppins', sans-serif";
-            ctx.fillStyle = "#FFFFFF";
-            ctx.textAlign = "center";
-            ctx.shadowColor = "rgba(0,0,0,0.8)";
-            ctx.shadowBlur = 20;
-            ctx.shadowOffsetX = 4; ctx.shadowOffsetY = 4;
 
-            wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
-            
-            ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0;
-            ctx.fillStyle = "rgba(255, 152, 0, 0.9)"; 
-            ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
-            ctx.font = "bold 35px 'Poppins', sans-serif";
-            ctx.fillStyle = "black";
-            ctx.fillText("✨ Shree Radhe Shyam App ✨", canvas.width / 2, canvas.height - 35);
-        }
-        function wrapText(context, text, x, y, maxWidth, lineHeight) {
-            var words = text.split(' ');
-            var line = '';
-            if(text.length > 50) y = y - (lineHeight * (text.length/40) / 2);
-            for (var i = 0; i < words.length; i++) {
-                var testLine = line + words[i] + ' ';
-                var metrics = context.measureText(testLine);
-                if (metrics.width > maxWidth && i > 0) {
-                    context.fillText(line, x, y); line = words[i] + ' '; y += lineHeight;
-                } else { line = testLine; }
-            }
-            context.fillText(line, x, y);
-        }
-        const galleryDiv = document.getElementById('miniGallery');
-        for(let i=1; i<=50; i++){
-            let img = document.createElement('img');
-            img.src = imagePath + "bg" + i + ".webp";
-            img.crossOrigin = "Anonymous";
-            img.onclick = function() { currentBg.src = this.src; currentBg.onload = function() { draw(); } };
-            galleryDiv.appendChild(img);
-        }
-        function shareCanvas() {
-    var dataURL = canvas.toDataURL("image/png");
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
 
-    // अगर App में हो → Direct Share
-    if (typeof Android !== "undefined") { 
-        Android.shareBase64Image(dataURL);
-        return;
+    const rootPath = "https://skbanilchopra.github.io/shree-radhe-shyam/";
+    const imagePath = rootPath;
+    const quotesFileUrl = rootPath + "quotes.json";
+
+    let allQuotes = ["Jai Shree Radhe Shyam"];
+    let currentQuote = "Loading...";
+    let currentBg = new Image();
+
+    init();
+
+    function init() {
+        currentBg.src = imagePath + "bg1.webp";
+        currentBg.crossOrigin = "Anonymous";
+
+        fetch(quotesFileUrl + "?t=" + new Date().getTime())
+            .then(r => r.json())
+            .then(data => { 
+                allQuotes = data.quotes;   // FIXED ✔
+                getRandomQuote(); 
+            })
+            .catch(e => {
+                currentQuote = "Jai Shree Radhe Shyam";
+                if (currentBg.complete) draw();
+            });
+
+        currentBg.onload = function () { draw(); }
     }
 
-    // Step-1 : Normal Website पर पहला Alert
-    alert("Ye feature sirf APP me available hai.");
+    function getRandomQuote() {
+        if (allQuotes.length > 0) {
+            const randomIndex = Math.floor(Math.random() * allQuotes.length);
+            currentQuote = allQuotes[randomIndex].text || allQuotes[randomIndex];
+            if (currentBg.complete) draw();
+        }
 
-    // Step-2 : App Download Confirm
-    var ask = confirm("Kya aap app download karna chahte hain?");
-
-    // Step-3 : User ne Yes bola → App APK download link
-    if (ask) {
-        window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
-    } else {
-        alert("Theek hai! Aap baad me download kar sakte hain.");
+        const icon = document.querySelector('.fa-sync-alt');
+        if (icon) {
+            icon.style.transition = "transform 0.5s";
+            icon.style.transform = "rotate(180deg)";
+            setTimeout(() => icon.style.transform = "rotate(0deg)", 500);
+        }
     }
-}
-    </script>
+
+    function draw() {
+        ctx.drawImage(currentBg, 0, 0, canvas.width, canvas.height);
+
+        let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, "rgba(0,0,0,0.3)");
+        gradient.addColorStop(1, "rgba(0,0,0,0.7)");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "bold 60px 'Poppins', sans-serif";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+        ctx.shadowColor = "rgba(0,0,0,0.8)";
+        ctx.shadowBlur = 20;
+        ctx.shadowOffsetX = 4;
+        ctx.shadowOffsetY = 4;
+
+        wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
+
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.fillStyle = "rgba(255, 152, 0, 0.9)";
+        ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+
+        ctx.font = "bold 35px 'Poppins', sans-serif";
+        ctx.fillStyle = "black";
+        ctx.fillText("✨ Shree Radhe Shyam App ✨", canvas.width / 2, canvas.height - 35);
+    }
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        if (text.length > 50) y = y - (lineHeight * (text.length / 40) / 2);
+
+        for (var i = 0; i < words.length; i++) {
+            var testLine = line + words[i] + ' ';
+            var metrics = context.measureText(testLine);
+            if (metrics.width > maxWidth && i > 0) {
+                context.fillText(line, x, y);
+                line = words[i] + ' ';
+                y += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        context.fillText(line, x, y);
+    }
+
+    const galleryDiv = document.getElementById('miniGallery');
+    for (let i = 1; i <= 50; i++) {
+        let img = document.createElement('img');
+        img.src = imagePath + "bg" + i + ".webp";
+        img.crossOrigin = "Anonymous";
+        img.onclick = function () {
+            currentBg.src = this.src;
+            currentBg.onload = function () { draw(); }
+        };
+        galleryDiv.appendChild(img);
+    }
+
+    function shareCanvas() {
+        var dataURL = canvas.toDataURL("image/png");
+
+        if (typeof Android !== "undefined") {
+            Android.shareBase64Image(dataURL);
+            return;
+        }
+
+        alert("Ye feature sirf APP me available hai.");
+
+        var ask = confirm("Kya aap app download karna chahte hain?");
+        if (ask) {
+            window.location.href = "https://skbanilchopra.github.io/shree-radhe-shyam/app.apk";
+        } else {
+            alert("Theek hai! Aap baad me download kar sakte hain.");
+        }
+    }
+
+</script>
+
 </body>
 </html>
