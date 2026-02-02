@@ -202,7 +202,7 @@
     {"id": 182, "cat": "motivation", "text": "हर रोज़ का छोटा step भी बड़ी जीत लाता है."},
     {"id": 183, "cat": "love", "text": "Tumhare बिना सब अधूरा है."},
     {"id": 184, "cat": "sad", "text": "खुशी के पीछे भी दर्द छुपा होता है."},
-    {"id": 185", "cat": "attitude", "text": "मैं अपनी conditions पर जीता हूँ."},
+    { "id": 185, "cat": "attitude", "text": "Main apni conditions par jeeta hoon." },
     {"id": 186, "cat": "life", "text": "हर रात के बाद सुबह होती है."},
     {"id": 187, "cat": "motivation", "text": "छोटी सोच छोटी success देती है."},
     {"id": 188, "cat": "love", "text": "Tum हो तो हर लम्हा खूबसूरत है."},
