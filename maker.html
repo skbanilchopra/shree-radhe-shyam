@@ -31,18 +31,26 @@
             padding: 15px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto;
         }
         
-        /* New Style Controls */
-        .style-controls {
-            display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;
+        /* Control Rows */
+        .control-row {
+            display: flex; gap: 10px; align-items: center; margin-bottom: 12px;
         }
+        
         select, input[type="color"] {
             background: rgba(0,0,0,0.5); border: 1px solid #FFD700;
             color: white; padding: 8px; border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', sans-serif; outline: none;
         }
         select { flex-grow: 1; }
         input[type="color"] { width: 50px; height: 40px; padding: 0; cursor: pointer; }
 
+        /* Range Slider Styling */
+        input[type=range] {
+            flex-grow: 1; accent-color: #FFD700; cursor: pointer; height: 6px;
+        }
+        .size-label { font-size: 14px; color: #FFD700; min-width: 30px; }
+
+        /* Buttons */
         .scroll-btn {
             background: transparent; color: #FFD700; border: 2px solid #FFD700;
             padding: 10px 25px; border-radius: 50px; font-size: 16px;
@@ -94,7 +102,7 @@
 
     <div class="controls">
         
-        <div class="style-controls">
+        <div class="control-row">
             <select id="fontSelect" onchange="updateStyle()">
                 <option value="'Poppins', sans-serif">Poppins (Simple)</option>
                 <option value="'Rozha One', serif">Rozha One (Bold)</option>
@@ -102,6 +110,12 @@
                 <option value="'Baloo 2', cursive">Baloo 2 (Modern)</option>
             </select>
             <input type="color" id="colorPicker" value="#FFFFFF" onchange="updateStyle()">
+        </div>
+
+        <div class="control-row">
+            <i class="fas fa-text-height" style="color: #FFD700;"></i>
+            <input type="range" id="sizeSlider" min="30" max="150" value="60" oninput="updateStyle()">
+            <span id="sizeValue" class="size-label">60</span>
         </div>
 
         <button class="scroll-btn refresh" onclick="getRandomQuote()">
@@ -134,9 +148,10 @@ let allQuotes = ["Jai Shree Radhe Shyam"];
 let currentQuote = "Loading...";
 let currentBg = new Image();
 
-// New State Variables
+// Styling State
 let currentFont = "'Poppins', sans-serif";
 let currentColor = "#FFFFFF";
+let currentSize = 60;
 
 init();
 
@@ -173,10 +188,15 @@ function getRandomQuote() {
     }
 }
 
-// New Function to handle style changes
+// Update Style (Font, Color, Size)
 function updateStyle() {
     currentFont = document.getElementById('fontSelect').value;
     currentColor = document.getElementById('colorPicker').value;
+    currentSize = document.getElementById('sizeSlider').value;
+    
+    // Update the label text
+    document.getElementById('sizeValue').innerText = currentSize;
+    
     draw();
 }
 
@@ -189,8 +209,8 @@ function draw() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Using Dynamic Font and Color
-    ctx.font = "bold 60px " + currentFont;
+    // Apply Dynamic Styles
+    ctx.font = "bold " + currentSize + "px " + currentFont;
     ctx.fillStyle = currentColor;
     
     ctx.textAlign = "center";
@@ -199,7 +219,7 @@ function draw() {
     ctx.shadowOffsetX = 4;
     ctx.shadowOffsetY = 4;
 
-    wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, 100);
+    wrapText(ctx, currentQuote, canvas.width / 2, canvas.height / 2, 900, parseInt(currentSize) + 40);
 
     ctx.shadowBlur = 0;
     ctx.fillStyle = "rgba(255, 152, 0, 0.9)";
@@ -214,7 +234,11 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     let words = text.split(' ');
     let line = '';
 
-    if (text.length > 50) y -= (lineHeight * (text.length / 40) / 2);
+    // Adjust Y position based on text length to center it
+    // Approximate centering adjustment
+    let estimatedLines = Math.ceil((context.measureText(text).width) / maxWidth); 
+    if(estimatedLines < 1) estimatedLines = 1;
+    y -= (lineHeight * estimatedLines) / 2;
 
     for (let i = 0; i < words.length; i++) {
         let testLine = line + words[i] + ' ';
@@ -242,7 +266,6 @@ for (let i = 1; i <= 50; i++) {
     galleryDiv.appendChild(img);
 }
 
-// New Function: Download Image (Web Fallback)
 function downloadCanvas() {
     var link = document.createElement('a');
     link.download = 'suvichar_shree_radhe_shyam.png';
@@ -258,7 +281,6 @@ function shareCanvas() {
         return;
     }
 
-    // Fallback if not in App
     alert("Share feature App me best chalta hai. Image download ho rahi hai...");
     downloadCanvas();
     
