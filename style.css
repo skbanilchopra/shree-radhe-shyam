@@ -1,35 +1,25 @@
-/* ============================================================
-   SUN-SID • PREMIUM ROYAL THEME (Optimized Version)
-   ============================================================ */
+/* --- style.css (Final Updated Version) --- */
 
-/* ---------------- 1. ROOT & BODY ---------------- */
+/* 1. General Settings (शाही बैकग्राउंड) */
 :root {
-    --primary-color: #FF8F00;
-    --secondary-color: #FFD54F;
-    --bg-color: #FFFDE7;
-    --text-color: #3E2723;
+    --primary-color: #FF8F00; /* गहरा नारंगी */
+    --secondary-color: #FFD54F; /* सुनहरा */
+    --bg-color: #FFFDE7; /* हल्का क्रीम */
+    --text-color: #3E2723; /* गहरा भूरा */
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+    margin: 0; padding: 0; font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
     color: var(--text-color);
-    padding-bottom: 90px;
+    padding-bottom: 90px; /* नीचे जगह बढ़ाई ताकि बटन न कटें */
     min-height: 100vh;
 }
 
-/* Floating Flower Canvas */
-#flowerCanvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
+/* एनीमेशन कैनवास */
+#flowerCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-/* ---------------- 2. BOTTOM NAVIGATION ---------------- */
+/* --- 2. BOTTOM NAVIGATION BAR --- */
 .navbar {
     position: fixed;
     bottom: 20px;
@@ -41,85 +31,59 @@ body {
     border-radius: 50px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding: 10px 0;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    border: 2px solid var(--secondary-color);
+    border: 2px solid #FFD54F;
     z-index: 1000;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    padding: 0; margin: 0;
-}
+.nav-links { list-style: none; padding: 0; margin: 0; display: flex; width: 100%; justify-content: space-around; }
+.nav-links li a { text-decoration: none; color: #8D6E63; font-size: 0.8rem; display: flex; flex-direction: column; align-items: center; transition: 0.3s; }
+.nav-links li a i { font-size: 1.4rem; margin-bottom: 5px; }
+.nav-links li a:hover, .nav-links li a.active { color: #FF6F00; font-weight: bold; }
 
-.nav-links li a {
-    text-decoration: none;
-    color: #8D6E63;
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.3s;
-}
-
-.nav-links li a i {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-}
-
-.nav-links li a:hover,
-.nav-links li a.active {
-    color: #FF6F00;
-    font-weight: bold;
-}
-
-/* ---------------- 3. MUSIC CONTROLS ---------------- */
+/* --- 3. MUSIC CONTROLS (यहाँ बदलाव किया है) --- */
 .music-controls {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.music-btn-nav {
-    background: linear-gradient(to right, #FF8F00, #FF6F00);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
+/* मोबाइल पर म्यूजिक बटन को ऊपर तैराएं (Floating) */
+@media (max-width: 600px) {
+    .nav-brand { display: none; } /* ब्रांड नाम छुपाएं */
+    
+    .music-controls {
+        display: flex !important; /* जरूर दिखाएं */
+        position: absolute;
+        top: -60px; /* नेविगेशन बार के ऊपर */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.9); /* हल्का पारदर्शी */
+        padding: 8px 20px;
+        border-radius: 30px;
+        border: 2px solid #FFD54F;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        z-index: 1001;
+        width: max-content;
+    }
+}
+
+.music-btn-nav { 
+    background: linear-gradient(to right, #FF8F00, #FF6F00); 
+    color: white; 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    cursor: pointer; 
     font-size: 0.85rem;
     font-weight: 600;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+.music-btn-nav:hover { transform: scale(1.05); }
 
-.music-btn-nav:hover {
-    transform: scale(1.05);
-}
-
-/* Mobile: Floating Music Controls */
-@media (max-width: 600px) {
-    .music-controls {
-        display: flex !important;
-        position: fixed !important;
-        bottom: 90px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        background: #FFF8E1;
-        padding: 8px 15px;
-        border-radius: 50px;
-        border: 2px solid var(--secondary-color);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        z-index: 9999 !important;
-        width: auto;
-    }
-
-    .nav-brand { display: none !important; }
-}
-
-/* ---------------- 4. CHANNEL HEADER ---------------- */
+/* --- 4. CHANNEL HEADER --- */
 header.channel-header {
     background: linear-gradient(to right, #FF6F00, #FFCA28);
     color: white;
@@ -131,272 +95,266 @@ header.channel-header {
     z-index: 10;
 }
 
-.banner-container {
-    width: 100%; height: 150px;
-    overflow: hidden;
-}
+.banner-container { width: 100%; height: 150px; overflow: hidden; }
+.banner-img { width: 100%; height: 100%; object-fit: cover; }
 
-.banner-img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-}
-
-.channel-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -50px;
+.channel-info { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    margin-top: -50px; 
     position: relative;
     z-index: 11;
 }
 
 .logo-container img.main-logo {
-    width: 110px; height: 110px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    background: #000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 110px; height: 110px; border-radius: 50%;
+    border: 4px solid #fff; background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.text-info h1 {
-    font-size: 1.8rem;
-    margin: 10px 0 5px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-.text-info p {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
+.text-info h1 { margin: 10px 0 5px 0; font-size: 1.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+.text-info p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
 
 .subscribe-btn {
-    background: white;
-    color: #D32F2F;
-    padding: 10px 25px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    margin-top: 10px;
+    background: white; color: #D32F2F; border: none; padding: 10px 25px; 
+    border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s;
 }
 
-/* ---------------- 5. CONTENT & CARDS ---------------- */
-.content-area {
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto 0;
-    position: relative;
-    z-index: 5;
+/* --- 5. CONTENT AREA & CARDS --- */
+.content-area { 
+    padding: 20px; 
+    max-width: 800px; 
+    margin: 20px auto 0 auto; 
+    position: relative; 
+    z-index: 5; 
 }
 
 .card {
-    background: white;
+    background: #FFFFFF;
     margin-bottom: 30px;
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(255,143,0,0.2);
-    border: 2px solid #FFECB3;
+    box-shadow: 0 4px 15px rgba(255, 143, 0, 0.2);
     text-align: center;
+    border: 2px solid #FFECB3;
 }
 
 .card h2 {
     color: #BF360C;
-    font-size: 1.5rem;
+    margin-top: 0;
     margin-bottom: 20px;
-    border-bottom: 2px dashed var(--secondary-color);
+    font-size: 1.5rem;
+    border-bottom: 2px dashed #FFD54F;
     display: inline-block;
     padding-bottom: 5px;
 }
 
-/* ---------------- 6. ROYAL SCROLL ---------------- */
-.scroll-container {
-    position: relative;
-    max-width: 550px;
-    margin: 0 auto 30px;
-}
-
-.mor-pankh {
-    position: absolute;
-    width: 70px;
-    top: -30px; right: -10px;
-    transform: rotate(15deg);
-}
-
+/* --- 6. ROYAL SCROLL (सुविचार) --- */
+.scroll-container { position: relative; max-width: 550px; margin: 0 auto 30px auto; padding-top: 10px; }
+.mor-pankh { position: absolute; top: -30px; right: -10px; width: 70px; transform: rotate(15deg); z-index: 20; }
 .royal-scroll {
     background: radial-gradient(circle, #FFF3E0, #FFE0B2);
-    border: 2px solid #FF9800;
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 10px; border: 2px solid #FF9800;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); padding: 5px;
 }
+.scroll-content { border: 1px dashed #FF9800; padding: 20px; border-radius: 5px; }
+.header-decoration, .footer-decoration { color: #FF6F00; font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
+.scroll-text { font-size: 1.3rem; color: #4E342E; font-weight: 600; min-height: 60px; line-height: 1.5; }
 
-.scroll-content {
-    padding: 20px;
-    border-radius: 5px;
-    border: 1px dashed #FF9800;
-}
-
-.scroll-text {
-    font-size: 1.3rem;
-    font-weight: 600;
-    min-height: 60px;
-    color: #4E342E;
-    line-height: 1.5;
-}
-
-.scroll-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.scroll-btn {
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-}
-
+.scroll-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+.scroll-btn { border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; color: white; }
 .scroll-btn.refresh { background: #FF8F00; }
 .scroll-btn.share { background: #25D366; }
 
-/* ---------------- 7. JAAP MALA ---------------- */
+/* --- 7. JAAP MALA --- */
 .jaap-circle {
-    width: 110px; height: 110px;
-    border-radius: 50%;
+    width: 110px; height: 110px; border-radius: 50%;
     background: linear-gradient(135deg, #FF8F00, #FFCA28);
-    border: 4px solid #FFF;
-    color: #fff;
-    font-size: 2.5rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255,143,0,0.4);
+    border: 4px solid #FFF; color: #fff; font-size: 2.5rem; font-weight: bold;
+    display: flex; justify-content: center; align-items: center;
+    margin: 20px auto; cursor: pointer; box-shadow: 0 5px 15px rgba(255,143,0,0.4);
 }
 .jaap-circle:active { transform: scale(0.95); }
 
-/* ---------------- 8. VIDEO AREA ---------------- */
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 2px solid #FFECB3;
-}
+/* --- 8. VIDEO & LYRICS & AARTI --- */
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; border: 2px solid #FFECB3; }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-.video-wrapper iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-/* ---------------- 9. TEXT CONTENT ---------------- */
-.lyrics-text,
-.about-content,
-.aarti-text {
-    background: #FFFDE7;
-    border: 1px solid #FFF59D;
-    padding: 15px;
-    border-radius: 10px;
-    color: #4E342E;
+.lyrics-text, .about-content, .aarti-text {
+    background: #FFFDE7; padding: 15px; border-radius: 10px;
+    border: 1px solid #FFF59D; color: #4E342E; text-align: left;
     line-height: 1.6;
 }
+.lyrics-text { text-align: center; }
 
-/* ---------------- 10. CHANNELS GRID ---------------- */
+select.aarti-dropdown {
+    width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px;
+    background: #FFF8E1; border: 2px solid #FFD54F; color: #5D4037; font-size: 1rem;
+}
+
+/* --- 9. FOOTER --- */
+.footer {
+    text-align: center; padding: 30px 20px;
+    background: linear-gradient(to right, #FF6F00, #FFCA28);
+    color: white; margin-top: 30px;
+    border-top-left-radius: 20px; border-top-right-radius: 20px;
+}
+.footer p { margin: 5px 0; font-size: 0.9rem; }
+.footer span { font-weight: bold; color: #FFFDE7; }
+
+/* --- मोबाइल पर म्यूजिक बटन को जबरदस्ती दिखाएं (Force Show) --- */
+@media (max-width: 600px) {
+    .music-controls {
+        display: flex !important; /* इसे छुपने से रोकेगा */
+        position: fixed !important; /* स्क्रीन पर फिक्स करेगा */
+        bottom: 90px !important; /* नीचे से 90px ऊपर (मेन्यू के ऊपर) */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        
+        background: #FFF8E1; /* बैकग्राउंड कलर */
+        padding: 8px 15px;
+        border-radius: 50px;
+        border: 2px solid #FFD54F;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        z-index: 9999 !important; /* सबसे ऊपर रखेगा */
+        width: auto;
+        gap: 15px;
+    }
+
+    /* अगर ब्रांड नाम हटाना है तो */
+    .nav-brand { display: none !important; } 
+}
+/* --- Channels Grid Design (Layout Fix) --- */
+
 .channels-grid {
     display: grid;
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* मोबाइल पर 2 कॉलम बनेंगे */
+    gap: 10px; /* बीच में थोड़ी जगह */
     padding: 10px;
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    max-width: 100%;
 }
 
 .channel-card {
     background: white;
     border-radius: 12px;
-    padding: 15px 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* मोबाइल पर फोटो ऊपर और टेक्स्ट नीचे */
+    align-items: center; /* सेंटर में लाएं */
     text-align: center;
+    width: 100%; /* पूरी जगह लेगा */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border: 2px solid #FFD54F;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    box-sizing: border-box; /* पैडिंग को साइज में गिनेगा */
 }
 
+/* इमेज को थोड़ा छोटा और सेंटर करें */
 .channel-card img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    margin-bottom: 5px;
+    margin-bottom: 5px; /* फोटो के नीचे गैप */
     border: 2px solid #eee;
 }
 
 .ch-details h3 {
-    margin: 0 0 5px;
-    font-size: 0.85rem;
-    white-space: nowrap;
+    margin: 0 0 5px 0;
+    font-size: 0.85rem; /* फॉन्ट थोड़ा छोटा किया */
+    color: #333;
+    white-space: nowrap; /* टेक्स्ट एक लाइन में */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* इसे style.css में अपडेट करें */
-.yt-button-container {
+.sub-btn {
+    background: #cc0000;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+/* म्यूजिक बटन को भी थोड़ा सेट करें */
+.header-music-controls {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 35px; /* बटन की ऊंचाई फिक्स करें */
-    overflow: hidden;
-    margin-top: 5px;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-/* मोबाइल के लिए छोटे फोंट */
-@media (max-width: 480px) {
-    .ch-details h3 {
-        font-size: 0.75rem;
-        white-space: normal; /* नाम दो लाइन में आने दें */
-        line-height: 1.2;
-    }
+.header-music-controls button {
+    font-size: 0.8rem !important;
+    padding: 8px 15px !important;
 }
 
-.sub-btn { display: none !important; }
-
-/* Bigger screens */
+/* अगर स्क्रीन बहुत बड़ी है (Laptop), तो 4 एक लाइन में दिखाओ */
 @media (min-width: 768px) {
     .channels-grid {
         grid-template-columns: repeat(4, 1fr);
     }
-    .ch-details h3 {
-        font-size: 0.75rem !important;
-        max-width: 80px;
+}
+/* --- YouTube Automatic Button Custom Styling --- */
+
+/* Card ko thoda adjust karein taki button fit ho jaye */
+.channel-card {
+    min-height: 140px; /* Ek jaisi height ke liye */
+    justify-content: space-between;
+    padding: 15px 5px !important;
+}
+
+/* YouTube Button Container Fix */
+.yt-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* बटन बाहर न निकले */
+    width: 100%;
+    min-height: 40px; /* फिक्स जगह */
+}
+/* Purane .sub-btn ko hide ya delete kar sakte hain agar 
+   aap sirf automatic button use kar rahe hain */
+.sub-btn {
+    display: none; 
+}
+
+/* Responsive check for larger screens */
+@media (min-width: 768px) {
+    .yt-button-container {
+        transform: scale(1); /* Desktop par normal size */
     }
 }
-
-/* ---------------- 11. FOOTER ---------------- */
-.footer {
-    text-align: center;
-    padding: 30px 20px;
-    background: linear-gradient(to right, #FF6F00, #FFCA28);
-    color: white;
-    margin-top: 30px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+/* YouTube Button ko card mein fit karne ke liye */
+/* YouTube Button Container Fix */
+.yt-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* बटन बाहर न निकले */
+    width: 100%;
+    min-height: 40px; /* फिक्स जगह */
+}
+/* Purane subscribe button ko hide karne ke liye (Optional) */
+.sub-btn {
+    display: none !important;
 }
 
-.footer p {
-    margin: 5px 0;
-    font-size: 0.9rem;
+/* Desktop layout ke liye thoda adjust */
+@media (min-width: 768px) {
+    .yt-button-container {
+        transform: scale(1);
+    }
+    .ch-details h3 {
+    font-size: 0.75rem !important; /* मोबाइल पर थोड़ा और छोटा */
+    max-width: 80px; /* नाम को सीमित करें */
 }
-
-.footer span {
-    font-weight: bold;
-    color: #FFFDE7;
 }
 
 
